@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自然美景欣赏 - 高清视频专区</title>
+    <!-- 预留CSS链接位置（本地引入，无网络依赖） -->
+    <link rel="stylesheet" href="sp.css"><!--视频模块-->
+    <script src="jj.css"></script><!--网页主体，滑动横幅模块-->
+    <script src="index.css"></script><!--菜单模块-->
+    <script>
+        // 原有Tailwind配置（仅保留颜色变量，无外部依赖）
+        const tailwind = {
+            theme: {
+                extend: {
+                    colors: {
+                        nature: {
+                            light: '#e8f4f8',
+                            main: '#48bb78',
+                            dark: '#2f855a'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-nature-light min-h-screen">
+    <!-- 原有顶部时间+天气模块（不变） -->
+    <div class="flex justify-between items-center bg-white p-4 shadow-md border-b border-nature-light">
+        <div id="real-time-clock" class="text-xl font-semibold text-nature-dark"></div>
+        <div id="weather" class="text-right text-nature-dark"></div>
+    </div>
+
+    <!-- 原有导航菜单栏（不变） -->
+  
+    <!-- 原有轮播横幅（不变） -->
+    <div class="p-4 md:p-6">
+        <div id="home" class="relative w-full h-48 md:h-64 overflow-hidden rounded-lg mb-0 shadow-md">
+            <div id="carousel" class="flex flex-col transition-transform duration-500 ease-in-out">
+                <div class="w-full h-48 md:h-64 flex items-center justify-center">
+                    <img src="jj.jpg" class="w-full h-full object-cover" alt="自然美景1">
+                </div>
+                <div class="w-full h-48 md:h-64 flex items-center justify-center">
+                    <img src="ll.jpg" class="w-full h-full object-cover" alt="自然美景2">
+                </div>
+                <div class="w-full h-48 md:h-64 flex items-center justify-center">
+                    <img src="cc.jpg" class="w-full h-full object-cover" alt="自然美景3">
+                </div>
+                <div class="w-full h-48 md:h-64 flex items-center justify-center">
+                    <img src="hh.jpg" class="w-full h-full object-cover" alt="自然美景4">
+                </div>
+                <div class="w-full h-48 md:h-64 flex items-center justify-center">
+                    <img src="mm.jpg" class="w-full h-full object-cover" alt="自然美景5">
+                </div>
+            </div>
+        </div>
+       <!-- 原有导航菜单栏（不变） -->
+    <div class="full-width-nav bg-white shadow-md border-b border-nature-light">
+        <div class="container mx-auto px-4">
+            <ul class="flex flex-wrap justify-center md:justify-start">
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="index.html" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">
+                        返回首页
+                    </a>
+                </li>
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">
+                        推荐视频
+                    </a>
+                </li>
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">
+                        草原风光
+                    </a>
+                </li>
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">
+                        山川湖泊
+                    </a>
+                </li>
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">
+                        森林秘境
+                    </a>
+                </li>
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="5.html" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">
+                        个人介绍
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+            <!-- 视频主播放区+侧边栏（类APP布局） -->
+            <main class="container mx-auto px-4 py-6">
+                    <!-- 视频播放主区域（类APP播放页） -->
+                    <section class="mb-8">
+                        <div class="bg-dark rounded-xl overflow-hidden video-shadow">
+                            <!-- 视频播放器 -->
+                            <div class="relative aspect-video">
+                                <video 
+                                    id="mainVideo" 
+                                    class="w-full h-full object-cover"
+                                    controls
+                                    poster=""
+                                >
+                                    <source src="草原.mp4" type="video/mp4">
+                                    您的浏览器不支持HTML5视频播放
+                                </video>
+                                
+                    </section>
+            
+                    <!-- 推荐视频列表（类APP瀑布流） -->
+                  <!-- 推荐视频列表（含网络视频链接，点击跳转播放） -->
+<section>
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold text-dark">为你推荐</h2>
+        <button class="text-primary text-sm hover:underline">查看全部</button>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- 推荐视频1（YouTube网络视频） -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow hover-scale">
+            <div class="relative aspect-video">
+                <!-- 视频封面用YouTube视频缩略图 -->
+                <img src="图1.jpg" class="w-full h-full object-cover" alt="视频封面">
+           
+                <!-- 点击封面跳转至YouTube视频播放页 -->
+                <a href="https://tv.360kan.com/" target="_blank" class="absolute inset-0">▶</a>
+            </div>
+            <div class="p-3">
+                <h3 class="font-medium text-sm mb-1 line-clamp-2">经典自然风景混剪 | 全球绝美风光集锦</h3>
+                <div class="flex items-center justify-between text-xs text-gray-500">
+                    <span>YouTube自然频道</span>
+                    <span>120万次观看</span>
+                </div>
+            </div>
+        </div>
+        <!-- 推荐视频2（YouTube网络视频） -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow hover-scale">
+            <div class="relative aspect-video">
+                <img src="图2.jpg" class="w-full h-full object-cover" alt="视频封面">
+               
+                <a href="https://www.youtube.com/watch?v=7s6Y26d7DRQ" target="_blank" class="absolute inset-0">▶</a>
+            </div>
+            <div class="p-3">
+                <h3 class="font-medium text-sm mb-1 line-clamp-2">亚马逊雨林沉浸式体验 | 鸟鸣与流水声疗</h3>
+                <div class="flex items-center justify-between text-xs text-gray-500">
+                    <span>雨林探索频道</span>
+                    <span>86万次观看</span>
+                </div>
+            </div>
+        </div>
+        <!-- 推荐视频3（Vimeo网络视频） -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow hover-scale">
+            <div class="relative aspect-video">
+                <img src="图3.jpg" class="w-full h-full object-cover" alt="视频封面">
+              
+                <a href="https://vimeo.com/123456789" target="_blank" class="absolute inset-0">▶</a>
+            </div>
+            <div class="p-3">
+                <h3 class="font-medium text-sm mb-1 line-clamp-2">阿尔卑斯山滑雪视角 | 雪山全景记录</h3>
+                <div class="flex items-center justify-between text-xs text-gray-500">
+                    <span>Vimeo户外频道</span>
+                    <span>45万次观看</span>
+                </div>
+            </div>
+        </div>
+       
+            <!-- 推荐视频1（YouTube网络视频） -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow hover-scale">
+                <div class="relative aspect-video">
+                    <!-- 视频封面用YouTube视频缩略图 -->
+                    <img src="图4.jpg" class="w-full h-full object-cover" alt="视频封面">
+                  
+                    <!-- 点击封面跳转至YouTube视频播放页 -->
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="absolute inset-0">▶</a>
+                </div>
+                <div class="p-3">
+                    <h3 class="font-medium text-sm mb-1 line-clamp-2">经典自然风景混剪 | 全球绝美风光集锦</h3>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>YouTube自然频道</span>
+                        <span>120万次观看</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 推荐视频2（YouTube网络视频） -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow hover-scale">
+                <div class="relative aspect-video">
+                    <img src="C:\Users\Administrator\Desktop\guang.png" class="w-full h-full object-cover" alt="视频封面">
+                
+                    <a href="https://www.youtube.com/watch?v=7s6Y26d7DRQ" target="_blank" class="absolute inset-0">▶</a>
+                </div>
+                <div class="p-3">
+                    <h3 class="font-medium text-sm mb-1 line-clamp-2">亚马逊雨林沉浸式体验 | 鸟鸣与流水声疗</h3>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>雨林探索频道</span>
+                        <span>86万次观看</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 推荐视频3（Vimeo网络视频） -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow hover-scale">
+                <div class="relative aspect-video">
+                    <img src="C:\Users\Administrator\Desktop\张家界武陵源.jpg" class="w-full h-full object-cover" alt="视频封面">
+            
+                    <a href="https://vimeo.com/123456789" target="_blank" class="absolute inset-0">▶</a>
+                </div>
+                <div class="p-3">
+                    <h3 class="font-medium text-sm mb-1 line-clamp-2">阿尔卑斯山滑雪视角 | 雪山全景记录</h3>
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span>Vimeo户外频道</span>
+                        <span>45万次观看</span>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+</section>
+
+            
+
+    <!-- 本地视频切换脚本（无网络依赖） -->
+    <script>
+        const mainVideo = document.getElementById('mainVideo');
+        const recommendItems = document.querySelectorAll('.recommend-item');
+        
+        // 推荐视频点击切换
+        recommendItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const videoSrc = item.getAttribute('data-video-src');
+                const videoPoster = item.getAttribute('data-video-poster');
+                const videoTitle = item.querySelector('.recommend-title').textContent;
+                
+                mainVideo.src = videoSrc;
+                mainVideo.poster = videoPoster;
+                document.querySelector('.video-title').textContent = videoTitle;
+                mainVideo.load();
+                mainVideo.play();
+            });
+        });
+
+        // 视频导航切换效果
+        const navItems = document.querySelectorAll('.video-nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                // 可扩展分类筛选逻辑
+            });
+        });
+    </script>
+     <script src="kk.js"></script>
+</body>
+</html>

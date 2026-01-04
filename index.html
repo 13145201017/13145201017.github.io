@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅游推荐</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="jj.css"></script>
+    <script src="index.css"></script>
+    <link rel="stylesheet" href="shp.css">
+    <link rel="stylesheet" href="sou.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nature: {
+                            light: '#e8f4f8',
+                            main: '#48bb78',
+                            dark: '#2f855a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 新增搜索栏整合样式 */
+        .header-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        
+        .search-mini {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-mini .engine-selector {
+            width: 120px;
+        }
+        
+        .search-mini .engine-selected {
+            padding: 6px 10px;
+        }
+        
+        .search-mini #search-input {
+            padding: 6px 36px 6px 30px;
+            font-size: 14px;
+        }
+        
+        .search-mini #search-button,
+        .search-mini #reset-search {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+        
+        .search-mini .engine-icon {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .search-mini .search-suggestions {
+            font-size: 12px;
+        }
+        
+        .search-mini .search-suggestion-btn {
+            padding: 2px 8px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<!-- 安全标识顶部栏 -->
+<div class="bg-nature-main/10 border-b border-nature-main/30 py-2 px-4">
+    <div class="container mx-auto flex items-center justify-center text-sm text-nature-dark">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-nature-main" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+      <span>🔒 本网站已通过安全验证，无恶意广告/钓鱼链接，放心浏览</span>
+    </div>
+  </div>
+  
+<body class="bg-nature-light min-h-screen">
+    <!-- 时间+天气+搜索栏横向并排模块 -->
+    <div class="bg-white p-4 shadow-md border-b border-nature-light">
+        <div class="header-row container mx-auto">
+            <div id="real-time-clock" class="text-xl font-semibold text-nature-dark"></div>
+            <div id="weather" class="text-right text-nature-dark"></div>
+            
+            <!-- 缩小的搜索栏模块 -->
+            <div class="search-mini">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-2">
+                    <!-- 搜索引擎选择器 -->
+                    <div class="engine-selector">
+                        <div class="engine-selected" id="engine-selected">
+                            <div class="flex items-center">
+                                <div class="engine-icon" id="selected-engine-icon"></div>
+                                <span id="selected-engine-name">本地</span>
+                            </div>
+                            <svg class="engine-toggle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                        <div class="engine-options" id="engine-options">
+                            <div class="engine-option active" data-engine="local" data-icon="local">
+                                <div class="engine-icon local-icon"></div>
+                                <span class="engine-name">本地</span>
+                                <span class="engine-check">✓</span>
+                            </div>
+                            <div class="engine-option" data-engine="360" data-icon="360">
+                                <div class="engine-icon _360-icon"></div>
+                                <span class="engine-name">360</span>
+                                <span class="engine-check"></span>
+                            </div>
+                            <div class="engine-option" data-engine="baidu" data-icon="baidu">
+                                <div class="engine-icon baidu-icon"></div>
+                                <span class="engine-name">百度</span>
+                                </span>
+                                <span class="engine-check"></span>
+                            </div>
+                            <div class="engine-option" data-engine="bing" data-icon="bing">
+                                <div class="engine-icon bing-icon"></div>
+                                <span class="engine-name">必应</span>
+                                <span class="engine-check"></span>
+                            </div>
+                            <div class="engine-option" data-engine="google" data-icon="google">
+                                <div class="engine-icon google-icon"></div>
+                                <span class="engine-name">谷歌</span>
+                                <span class="engine-check"></span>
+                            </div>
+                            <div class="engine-option" data-engine="doubao" data-icon="doubao">
+                                <div class="engine-icon doubao-icon"></div>
+                                <span class="engine-name">豆包Ai</span>
+                                <span class="engine-check"></span>
+                            </div>
+                            <div class="engine-option" data-engine="qianwen" data-icon="qianwen">
+                                <div class="engine-icon qianwen-icon"></div>
+                                <span class="engine-name">千问Ai</span>
+                                <span class="engine-check"></span>
+                            </div>
+                            <div class="engine-option" data-engine="douyin" data-icon="douyin">
+                                <div class="engine-icon douyin-icon"></div>
+                                <span class="engine-name">抖音记录美好生活</span>
+                                <span class="engine-check"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full md:flex-1 relative">
+                        <input 
+                            type="text" 
+                            id="search-input" 
+                            placeholder="搜索自然美景、资讯、视频..." 
+                            class="w-full border border-nature-main rounded-lg focus:outline-none focus:ring-2 focus:ring-nature-main focus:border-transparent"
+                        >
+                        <div class="absolute left-3 top-2 text-nature-main">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <button 
+                            id="clear-search" 
+                            class="absolute right-24 top-2 text-gray-400 hover:text-gray-600 hidden"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex gap-1 w-full md:w-auto">
+                        <button 
+                            id="search-button" 
+                            class="bg-nature-main text-white rounded-lg hover:bg-nature-dark transition-colors duration-300 font-medium flex items-center gap-1 justify-center w-full md:w-auto"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            搜索
+                        </button>
+                      
+                    </div>
+                </div>
+                
+                <!-- 搜索框安全标识 -->
+<div class="absolute right-40 top-2 text-nature-main">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+    </svg>
+  </div>
+                <!-- 搜索结果区域 -->
+                <div id="search-results" class="mt-2 hidden z-10 relative">
+                    <div class="bg-white rounded-lg shadow-md p-3 w-full">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-sm font-bold text-nature-dark">搜索结果</h3>
+                            <span id="result-count" class="text-xs text-gray-500"></span>
+                        </div>
+                        <div id="results-container" class="space-y-2 max-h-60 overflow-y-auto pr-1 text-sm">
+                            <!-- 搜索结果会动态插入到这里 -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 搜索建议 -->
+                <div id="search-suggestions" class="mt-1 text-xs text-gray-600">
+                    热门搜索: 
+                    <span class="inline-flex flex-wrap gap-1 mt-0.5">
+                        <button class="search-suggestion-btn bg-gray-100 hover:bg-nature-main hover:text-white px-2 py-0.5 rounded-full text-xs transition-colors duration-200" data-search="草原">草原</button>
+                        <button class="search-suggestion-btn bg-gray-100 hover:bg-nature-main hover:text-white px-2 py-0.5 rounded-full text-xs transition-colors duration-200" data-search="高山">高山</button>
+                        <button class="search-suggestion-btn bg-gray-100 hover:bg-nature-main hover:text-white px-2 py-0.5 rounded-full text-xs transition-colors duration-200" data-search="湖泊">湖泊</button>
+                        <button class="search-suggestion-btn bg-gray-100 hover:bg-nature-main hover:text-white px-2 py-0.5 rounded-full text-xs transition-colors duration-200" data-search="日出">日出</button>
+                        <button class="search-suggestion-btn bg-gray-100 hover:bg-nature-main hover:text-white px-2 py-0.5 rounded-full text-xs transition-colors duration-200" data-search="自然风光">自然风光</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 铺满顶部的选项菜单栏 -->
+    <div class="full-width-nav bg-white shadow-md border-b border-nature-light">
+        <div class="container mx-auto px-4">
+            <ul class="flex flex-wrap justify-center md:justify-start">
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="#home" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">
+                        首页
+                    </a>
+                </li>
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="https://500px.com.cn/community/discover" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">
+                        美景图鉴
+                    </a>
+                </li>
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="#newsSection" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">
+                        自然资讯
+                    </a>
+                </li>
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="4.html" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">
+                        旅游攻略
+                    </a>
+                </li>
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="#video" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">
+                        高清视频
+                    </a>
+                </li>
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="5.html" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">
+                        个人介绍
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- 主要内容区域 -->
+    <div class="p-4 md:p-6">
+        <!-- 上下滑动轮播横幅 - 自然美景图 -->
+        <div id="home" class="relative w-full h-48 md:h-64 overflow-hidden rounded-lg mb-6 shadow-md">
+            <div id="carousel" class="flex flex-col transition-transform duration-500 ease-in-out">
+                <div class="w-full h-48 md:h-64 flex items-center justify-center">
+                    <img src="jj.jpg" class="w-full h-full object-cover" alt="自然美景1">
+                </div>
+                <div class="w-full h-48 md:h-64 flex items-center justify-center">
+                    <img src="ll.jpg" class="w-full h-full object-cover" alt="自然美景2">
+                </div>
+                <div class="w-full h-48 md:h-64 flex items-center justify-center">
+                    <img src="cc.jpg" class="w-full h-full object-cover" alt="自然美景3">
+                </div>
+                <div class="w-full h-48 md:h-64 flex items-center justify-center">
+                    <img src="hh.jpg" class="w-full h-full object-cover" alt="自然美景4">
+                </div>
+                <div class="w-full h-48 md:h-64 flex items-center justify-center">
+                    <img src="mm.jpg" class="w-full h-full object-cover" alt="自然美景5">
+                </div>
+            </div>
+        </div>
+       
+        <!-- 新闻双模块容器 - 自然主题 -->
+        <div id="newsSection" class="bg-white rounded-lg p-6 shadow-md border border-nature-light">
+            <h2 class="text-xl md:text-2xl font-bold text-nature-dark mb-6 border-b border-nature-light pb-2">自然资讯</h2>
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- 左侧八点新闻模块 -->
+                <div class="md:flex-1">
+                    <h3 class="text-lg font-bold mb-4 text-nature-main border-b border-nature-light pb-2">美景资讯速览</h3>
+                    <div id="news-list-dot" class="space-y-3"></div>
+                </div>
+                <!-- 右侧三图新闻模块 - 图左文右 -->
+                <div class="md:flex-1">
+                    <h3 class="text-lg font-bold mb-4 text-nature-main border-b border-nature-light pb-2">自然风光推荐</h3>
+                    <div id="news-list-img" class="space-y-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="video" class="video-section">
+        <!-- 补充视频模块标题，避免顶部空出 -->
+        <div class="video-section-title">自然美景高清视频</div>
+        <div class="video-container">
+            <!-- 左侧视频播放区 -->
+            <div class="play-area">
+                <video 
+                    id="polarVideo" 
+                    controls 
+                    autoplay 
+                    muted 
+                    preload="metadata"
+                    poster="dd.jpg" 
+                >
+                    <source src="总揽.mp4" type="video/mp4">
+                    您的浏览器不支持HTML5视频播放
+                </video>
+            </div>
+            <!-- 右侧节目列表栏 -->
+            <div class="program-column">
+                <div class="column-title">节目列表</div>
+                <div class="program-header">
+                    <span>节目名</span>
+                    <span>主演</span>
+                    <span>日期</span>
+                </div>
+                <!-- 修复节目名，替换"333"为实际名称 -->
+                <div id="video-src1" class="program-item active" 
+                     data-video-src="jj.mp4" 
+                     data-video-poster="dd.jpg">
+                    <span>草原全景实拍</span>
+                    <span>自然探索队</span>
+                    <span>2025-12-01</span>
+                </div>
+                <div  id="video-src2" class="program-item" 
+                     data-video-src="kk.mp4" 
+                     data-video-poster="tt.jpg">
+                    <span>高山湖泊风光</span>
+                    <span>户外摄影组</span>
+                    <span>2025-11-28</span>
+                </div>
+                <div  id="video-src3" class="program-item" 
+                     data-video-src="草原.mp4" 
+                     data-video-poster="tt.jpg">
+                    <span>呼伦贝尔日出</span>
+                    <span>自然纪录片团队</span>
+                    <span>2025-11-28</span>
+                </div>
+                <!-- 修复"更多"按钮链接（用href替代src） -->
+                <div class="more-btn">
+                    <button type="button"><a href="1.html" style="color: #fff; text-decoration: none;">更多</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-nature-dark text-white py-8 mt-12">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <!-- 友情链接标题 -->
+            <div class="flex items-center gap-2 mb-6 border-b border-white/20 pb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                <h3 class="text-xl font-bold">友情链接</h3>
+            </div>
+            
+            <!-- 链接列表（分两列，响应式适配） -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+                <a href="https://www.mafengwo.cn" target="_blank" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+                    </svg>
+                    <span>马蜂窝旅游网</span>
+                </a>
+                <a href="https://www.lvmama.com" target="_blank" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    <span>驴妈妈旅游</span>
+                </a>
+                <a href="https://travel.qunar.com" target="_blank" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span>去哪儿网</span>
+                </a>
+                <a href="https://www.ctrip.com" target="_blank" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>携程旅行</span>
+                </a>
+                <a href="https://www.163.com/travel/" target="_blank" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 11V7a4 4 0 00-8 0v4M6 9h12l2 2H4l2-2z" />
+                    </svg>
+                    <span>网易旅游</span>
+                </a>
+                <a href="https://travel.sina.cn" target="_blank" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                    </svg>
+                    <span>新浪旅游</span>
+                </a>
+                <a href="https://www.sohu.com/travel/" target="_blank" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span>搜狐旅游</span>
+                </a>
+                <a href="https://travel.ifeng.com" target="_blank" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    <span>凤凰旅游</span>
+                </a>
+            </div>
+            
+            <!-- 底部声明 -->
+            
+    
+    <div class="bg-nature-dark/60 rounded-xl p-6 md:p-8 mb-8 border border-white/15 backdrop-blur-sm">
+        <div class="flex flex-col md:flex-row flex-wrap items-center justify-between gap-6 md:gap-10">
+          <!-- 1. Logo区域（强化品牌感） -->
+          <div class="flex items-center gap-3">
+            <div class="w-14 h-14 bg-emerald-400 rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/30 overflow-hidden">
+                  <img src="logo.jpg"  alt="自然美景欣赏Logo" class="w-full h-full object-cover" loading="lazy"  onerror="this.style.display='none'"  >  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9-2-9-2-9 2 9 2zm0 0v-8a2 2 0 10-4 0v8a2 2 0 004 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12v4" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xl md:text-2xl font-bold text-white tracking-wide">自然美景欣赏</h4>
+              <p class="text-sm text-emerald-200 mt-1">探索自然之美 · 分享旅行乐趣</p>
+            </div>
+          </div>
+          
+          <!-- 2. 联系信息区域（清晰规整） -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-sm w-full md:w-auto">
+            <div class="flex items-center gap-2 hover:text-emerald-300 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <p><a href="mailto:243 8338134@qq.com"></a>2438338134@qq.com</p>
+            </div>
+            <div class="flex items-center gap-2 hover:text-emerald-300 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <span>19044354967</span>        
+            </div>
+            <div class="flex items-center gap-2 hover:text-emerald-300 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.417-1.442l.043-.053m9.144-4.286l.043-.053M9 7h3m3 0h-3m-1.5 3.75H15m0 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm3.75 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+              </svg>
+              <span>www.ziranmeijing.com</span>
+            </div>
+          </div>
+          
+          <!-- 3. 功能入口区域（醒目易操作） -->
+          <div class="flex gap-4">
+            <a href="https://www.12377.cn" class="px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 footer-link">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              <span>举报</span>
+            </a>
+            <a href="https://bsb.baidu.com/" class="px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 footer-link">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              <span>安全</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+     <!-- 底部安全标识+举报按钮整合区域 -->
+<div class="bg-white rounded-xl p-4 mt-6 border border-nature-light/50">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <!-- 安全标识图标组 -->
+      <div class="flex items-center gap-6">
+        <div class="text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-nature-main" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          <p class="text-xs mt-1 text-nature-dark">数据加密</p>
+        </div>
+        <div class="text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-nature-main" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+          <p class="text-xs mt-1 text-nature-dark">隐私保护</p>
+        </div>
+        <div class="text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-nature-main" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <p class="text-xs mt-1 text-nature-dark">安全验证</p>
+        </div>
+      </div>
+      <!-- 安全声明文本 -->
+      <div class="text-sm text-gray-600 max-w-md">
+        本网站承诺：不收集用户隐私数据，所有外部链接均经过安全检测，若发现恶意内容可通过下方按钮举报
+      </div>
+      <!-- 举报按钮（主按钮） -->
+      <button  id="footer-report-btn" class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-600 transition-colors">
+       举报不良内容
+      </button>
+    </div>
+  
+    <!-- 新增：底部举报渠道补充（加在安全标识模块内部下方） -->
+    <div class="mt-4 pt-4 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-2">
+      <p class="text-xs text-gray-500">
+        官方渠道：拨打12377热线 | 登录<a href="https://www.12377.cn" target="_blank" class="text-red-500 underline">12377举报官网</a> | 发送邮件至jubao@12377.cn
+      </p>
+      <p class="text-xs text-gray-400">举报信息将同步至国家网络安全举报中心，全程可追溯</p>
+    </div>
+  </div>
+  
+  <!-- 举报弹窗代码（保留之前的完整逻辑，添加到footer结束前） -->
+  <div id="report-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
+      <!-- 弹窗头部 -->
+      <div class="bg-red-500 text-white p-4 flex justify-between items-center">
+        <h3 class="text-lg font-bold">举报不良内容</h3>
+        <button id="close-report-modal" class="text-white hover:text-gray-200 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <!-- 举报表单 -->
+      <div class="p-5">
+        <form id="report-form">
+          <!-- 举报类型 -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1">举报类型</label>
+            <select class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-red-500" required>
+              <option value="">请选择举报类型</option>
+              <option value="spam">垃圾广告/弹窗</option>
+              <option value="illegal">违法不良信息</option>
+              <option value="fake">虚假内容/谣言</option>
+              <option value="other">其他问题</option>
+            </select>
+          </div>
+          <!-- 举报描述 -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1">问题描述（必填）</label>
+            <textarea class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-red-500 h-24" placeholder="请描述具体问题，如弹窗频繁、内容违规等..." required></textarea>
+          </div>
+          <!-- 证据上传 -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1">上传证据（可选）</label>
+            <input type="file" class="w-full border border-gray-300 rounded-lg p-2" accept="image/*,video/*">
+            <p class="text-xs text-gray-500 mt-1">支持截图、录屏等，帮助快速核实</p>
+          </div>
+          <!-- 联系方式 -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-1">联系方式（可选）</label>
+            <input type="tel" class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="请输入手机号，方便反馈结果">
+          </div>
+          <!-- 提交按钮 -->
+          <div class="flex gap-2">
+            <button type="submit" class="flex-1 bg-red-500 text-white rounded-lg py-2 hover:bg-red-600 transition-colors">
+              提交举报（转官方渠道）
+            </button>
+            <button type="button" id="cancel-report" class="flex-1 border border-gray-300 rounded-lg py-2 hover:bg-gray-100 transition-colors">
+              取消
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </footer><!-- 友情链接弹窗广告 -->
+  <div id="friendLinkPopup" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
+    <!-- 弹窗头部 -->
+    <div class="bg-nature-main text-white p-4 flex justify-between items-center">
+      <h3 class="text-lg font-bold">🌟 精选友情推荐</h3>
+      <button id="closePopup" class="text-white hover:text-gray-200 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <!-- 弹窗内容（友情链接列表） -->
+    <div class="p-5 space-y-3">
+      <a href="https://www.mafengwo.cn" target="_blank" class="block p-3 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-colors flex items-center gap-3 border border-emerald-100 popup-link">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+        </svg>
+        <span class="font-medium text-nature-dark">马蜂窝旅游网 - 发现全球美景</span>
+      </a>
+      <a href="https://www.lvmama.com" target="_blank" class="block p-3 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-colors flex items-center gap-3 border border-emerald-100 popup-link">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+        <span class="font-medium text-nature-dark">驴妈妈旅游 - 精选自然目的地</span>
+      </a>
+      <a href="https://travel.qunar.com" target="_blank" class="block p-3 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-colors flex items-center gap-3 border border-emerald-100 popup-link">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        <span class="font-medium text-nature-dark">去哪儿网 - 自然景区特惠</span>
+      </a>
+      <a href="https://www.ctrip.com" target="_blank" class="block p-3 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-colors flex items-center gap-3 border border-emerald-100 popup-link">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span class="font-medium text-nature-dark">携程旅行 - 自然美景攻略</span>
+      </a>
+    </div>
+    <!-- 弹窗底部 -->
+    <div class="bg-gray-50 p-4 flex justify-between items-center">
+      <label class="flex items-center gap-2 text-sm text-gray-600">
+        <input type="checkbox" id="dontShowAgain" class="rounded text-nature-main focus:ring-nature-main">
+        <span>24小时内不再显示</span>
+      </label>
+      <button id="skipPopup" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-700 transition-colors text-sm font-medium">
+        跳过
+      </button>
+    </div>
+  </div>
+  </div>
+  
+    <script src="logo.js"></script>
+    <script src="sou.js"></script>
+    <script src="kk.js"></script>
+</body>
+</html>

@@ -1,0 +1,767 @@
+/* travel-style.css - 旅游攻略页面样式 */
+
+/* 基础样式 */
+.bg-nature-light {
+    background-color: #e8f4f8;
+}
+
+.bg-nature-main {
+    background-color: #48bb78;
+}
+
+.bg-nature-dark {
+    background-color: #2f855a;
+}
+
+.text-nature-main {
+    color: #48bb78;
+}
+
+.text-nature-dark {
+    color: #2f855a;
+}
+
+.border-nature-light {
+    border-color: #e8f4f8;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.text-white {
+    color: white;
+}
+
+.text-gray-600 {
+    color: #6b7280;
+}
+
+.text-gray-700 {
+    color: #374151;
+}
+
+.text-gray-500 {
+    color: #6b7280;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.text-xs {
+    font-size: 0.75rem;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+}
+
+.text-2xl {
+    font-size: 1.5rem;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+.rounded-full {
+    border-radius: 9999px;
+}
+
+.rounded {
+    border-radius: 0.25rem;
+}
+
+.shadow-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.border {
+    border-width: 1px;
+    border-style: solid;
+}
+
+/* 布局样式 */
+.p-4 {
+    padding: 1rem;
+}
+
+.p-3 {
+    padding: 0.75rem;
+}
+
+.p-6 {
+    padding: 1.5rem;
+}
+
+.px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.px-5 {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+.py-3 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem;
+}
+
+.mb-8 {
+    margin-bottom: 2rem;
+}
+
+.mr-2 {
+    margin-right: 0.5rem;
+}
+
+/* Flexbox样式 */
+.flex {
+    display: flex;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.items-start {
+    align-items: flex-start;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-start {
+    justify-content: flex-start;
+}
+
+/* Grid样式 */
+.grid {
+    display: grid;
+}
+
+.grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.gap-4 {
+    gap: 1rem;
+}
+
+.gap-3 {
+    gap: 0.75rem;
+}
+
+.gap-2 {
+    gap: 0.5rem;
+}
+
+.space-y-3 > * + * {
+    margin-top: 0.75rem;
+}
+
+.space-y-2 > * + * {
+    margin-top: 0.5rem;
+}
+
+.space-y-4 > * + * {
+    margin-top: 1rem;
+}
+
+/* 卡片悬浮效果 */
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 文字滚动动画 */
+.text-animate {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: text-scroll 15s linear infinite;
+}
+
+@keyframes text-scroll {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* 平滑滚动 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 边框样式 */
+.border-b {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+/* 溢出隐藏 */
+.overflow-hidden {
+    overflow: hidden;
+}
+
+/* 尺寸样式 */
+.w-full {
+    width: 100%;
+}
+
+.h-48 {
+    height: 12rem;
+}
+
+.object-cover {
+    object-fit: cover;
+}
+
+/* 过渡效果 */
+.transition-colors {
+    transition-property: color, background-color, border-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+.transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+.duration-200 {
+    transition-duration: 200ms;
+}
+
+.duration-300 {
+    transition-duration: 300ms;
+}
+
+/* 悬停效果 */
+.hover\:bg-nature-main:hover {
+    background-color: #48bb78;
+}
+
+.hover\:bg-nature-dark:hover {
+    background-color: #2f855a;
+}
+
+.hover\:bg-nature-light\/50:hover {
+    background-color: rgba(232, 244, 248, 0.5);
+}
+
+.hover\:bg-nature-light\/80:hover {
+    background-color: rgba(232, 244, 248, 0.8);
+}
+
+.hover\:text-white:hover {
+    color: white;
+}
+
+.hover\:underline:hover {
+    text-decoration: underline;
+}
+
+/* 文本样式 */
+.text-center {
+    text-align: center;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.min-w-0 {
+    min-width: 0;
+}
+
+.flex-1 {
+    flex: 1 1 0%;
+}
+
+/* 列表样式 */
+ul {
+    list-style-type: none;
+}
+
+/* 响应式设计 */
+@media (min-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    
+    .md\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    
+    .md\:justify-start {
+        justify-content: flex-start;
+    }
+    
+    .md\:p-6 {
+        padding: 1.5rem;
+    }
+    
+    .md\:text-2xl {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .lg\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}/* 基础样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 颜色变量定义 */
+:root {
+    --color-nature-light: #e8f4f8;
+    --color-nature-main: #48bb78;
+    --color-nature-dark: #2f855a;
+    --color-gray-500: #6b7280;
+    --color-gray-600: #4b5563;
+    --color-gray-700: #374151;
+    --color-white: #ffffff;
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --transition-default: all 0.3s ease;
+}
+
+/* 页面基础样式 */
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: var(--color-nature-light);
+    padding: 1rem;
+}
+
+/* 导航菜单核心样式（自适应关键） */
+.nav-container {
+    background-color: var(--color-white);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-nature-light);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+/* 桌面端导航 - 横向排列 */
+.nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+}
+
+/* 导航项样式 */
+.nav-item a {
+    display: block;
+    padding: 0.75rem 1.25rem;
+    color: var(--color-nature-dark);
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--transition-default);
+    white-space: nowrap; /* 防止文字换行 */
+}
+
+/* 导航项交互效果 */
+.nav-item a:hover {
+    background-color: var(--color-nature-main);
+    color: var(--color-white);
+}
+
+/* 移动端适配（768px以下）- 纵向排列 */
+@media (max-width: 767px) {
+    .nav-list {
+        flex-direction: column;
+    }
+    .nav-item a {
+        text-align: center;
+        padding: 1rem;
+        border-bottom: 1px solid var(--color-nature-light);
+    }
+    .nav-item:last-child a {
+        border-bottom: none;
+    }
+}
+
+/* 横幅滚动标语 */
+.banner {
+    background-color: var(--color-nature-main);
+    color: var(--color-white);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.text-animate {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: text-scroll 15s linear infinite;
+}
+
+@keyframes text-scroll {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* 标题样式 */
+.section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-nature-dark);
+    margin-bottom: 1rem;
+}
+
+/* 网格布局（响应式） */
+.grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.grid-cols-1 {
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    body {
+        padding: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .lg\:grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    body {
+        padding: 2rem;
+    }
+}
+
+/* 卡片样式 */
+.card {
+    background-color: var(--color-white);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+
+.card-hover {
+    transition: var(--transition-default);
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 1rem;
+}
+
+.card-title {
+    font-size: 1.125rem;
+    font-weight: bold;
+    color: var(--color-nature-dark);
+    margin-bottom: 0.5rem;
+}
+
+.card-desc {
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+    margin-bottom: 0.5rem;
+}
+
+.card-link {
+    font-size: 0.875rem;
+    color: var(--color-nature-main);
+    text-decoration: none;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+/* 攻略分类列表 */
+.strategy-list {
+    background-color: var(--color-white);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-nature-light);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.strategy-item {
+    padding: 0.75rem;
+    border: 1px solid var(--color-nature-light);
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+    transition: background-color 0.2s ease;
+}
+
+.strategy-item:last-child {
+    margin-bottom: 0;
+}
+
+.strategy-item:hover {
+    background-color: rgba(232, 244, 248, 0.5);
+}
+
+.strategy-item-title {
+    font-weight: 600;
+    color: var(--color-nature-dark);
+    margin-bottom: 0.25rem;
+}
+
+.strategy-item-desc {
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+}
+
+/* 季节推荐模块 */
+.season-buttons {
+    background-color: var(--color-white);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-nature-light);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-default);
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--color-nature-main);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-nature-dark);
+}
+
+.btn-default {
+    background-color: var(--color-nature-light);
+    color: var(--color-nature-dark);
+}
+
+.btn-default:hover {
+    background-color: rgba(232, 244, 248, 0.8);
+}
+
+/* 季节内容样式 */
+.season-content {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-nature-light);
+}
+
+.season-content.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.season-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.season-item {
+    background-color: var(--color-nature-light);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+}
+
+.season-item h5 {
+    font-weight: 600;
+    color: var(--color-nature-dark);
+    margin-bottom: 0.25rem;
+}
+
+.season-item p {
+    font-size: 0.75rem;
+    color: var(--color-gray-600);
+    margin-bottom: 0.25rem;
+}
+
+.season-tag {
+    font-size: 0.625rem;
+    background-color: var(--color-nature-main);
+    color: var(--color-white);
+    padding: 0.125rem 0.375rem;
+    border-radius: 999px;
+}
+
+/* 旅行贴士样式 */
+.travel-tips {
+    background-color: var(--color-white);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-nature-light);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* 目的地详情样式 */
+.destination-detail {
+    background-color: var(--color-white);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-nature-light);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.destination-detail h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--color-nature-dark);
+    margin-bottom: 1rem;
+}
+
+.destination-detail p {
+    margin-bottom: 0.75rem;
+    color: var(--color-gray-700);
+}
+
+/* 涟漪效果 */
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+    to {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+}
+/* 全局导航链接去下划线（最高优先级） */
+.full-width-nav a,
+.nav-container a,
+.nav-item a,
+.full-width-nav a:hover,
+.nav-container a:hover,
+.nav-item a:hover,
+.full-width-nav a:active,
+.nav-container a:active,
+.nav-item a:active,
+.full-width-nav a:focus,
+.nav-container a:focus,
+.nav-item a:focus {
+    text-decoration: none !important;
+    border-bottom: none !important;
+    outline: none !important;
+}
+
+/* 确保没有其他样式干扰 */
+a {
+    text-decoration: none !important;
+}

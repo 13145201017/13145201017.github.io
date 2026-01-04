@@ -1,0 +1,214 @@
+/* 视频模块样式 - 彻底解决对齐问题 */
+.video-section {
+    width: 100%;
+    border: 1px solid #81d4fa;
+    border-top: none !important; /* 移除顶部边框，避免与上方导航双重线条 */
+    padding: 15px 10px;
+    background: #fff;
+    margin: 0 !important; /* 完全消除上下左右间距，与上方模块无缝衔接 */
+    box-sizing: border-box;
+}
+
+.video-section-title {
+    color: #0288d1;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #b3e5fc;
+    margin: 0 15px 15px; /* 标题左右留空，上下间距统一 */
+}
+
+@media (min-width: 768px) {
+    .video-section-title {
+        font-size: 18px;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+}
+
+/* 视频容器 - 确保左右模块对齐+无偏移 */
+.video-container {
+    display: flex;
+    border: 3px solid #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #e8f4f8;
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto !important; /* 水平居中，无额外间距 */
+    box-shadow: 0 0 15px rgba(135, 206, 235, 0.3);
+    flex-direction: column; /* 小屏纵向 */
+    padding: 0;
+    align-items: stretch; /* 强制子元素拉伸填满，避免高度不一致 */
+}
+
+@media (min-width: 768px) {
+    .video-container {
+        flex-direction: row; /* 大屏横向 */
+    }
+}
+
+/* 播放区 - 固定比例+与右侧列表高度对齐 */
+.play-area {
+    flex: 3;
+    position: relative;
+    background: #ffffff;
+    /* 用aspect-ratio替代固定高度，确保视频比例一致且与右侧列表对齐 */
+    aspect-ratio: 16/9; 
+    min-height: 200px; /* 小屏最小高度 */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 视频加载前容器居中 */
+}
+
+@media (min-width: 1024px) {
+    .play-area {
+        min-height: 350px; /* 大屏最小高度 */
+    }
+}
+
+/* 视频元素 - 完全填充播放区，无偏移 */
+#polarVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: none; /* 移除多余边框导致的偏移 */
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+/* 右侧节目列表 - 与左侧播放区顶部对齐+高度适配 */
+.program-column {
+    flex: 1;
+    background: #f5fafe;
+    border-left: 3px solid #ffffff;
+    border-top: none;
+    padding: 15px;
+    color: #01579b;
+    /* 让列表高度与左侧播放区一致，避免空出底部 */
+    height: 100%; 
+    max-height: none; /* 取消最大高度限制，随左侧自适应 */
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* 小屏边框调整+高度适配 */
+@media (max-width: 767px) {
+    .program-column {
+        border-left: none;
+        border-top: 3px solid #ffffff;
+        /* 小屏纵向时，列表高度固定，避免过长 */
+        max-height: 300px;
+    }
+}
+
+/* 保留原有其他样式（.column-title/.program-header等）不变 */
+.column-title {
+    font-size: 16px;
+    color: #0288d1;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #b3e5fc;
+    margin-bottom: 15px;
+}
+.program-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 5px;
+    background: #e0f7fa;
+    border: 1px solid #b3e5fc;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+.program-header span {
+    color: #01579b;
+    font-weight: bold;
+}
+.program-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 5px;
+    border: 1px solid #e3f2fd;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: background 0.2s, border 0.2s;
+    border-radius: 4px;
+    font-size: 12px;
+}
+.program-item:hover {
+    background: rgba(179, 229, 252, 0.3);
+    border-color: #81d4fa;
+}
+.program-item.active {
+    background: rgba(135, 206, 235, 0.2);
+    border-color: #0288d1;
+}
+.program-item span {
+    color: #01579b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.program-item span:nth-child(1) {width: 45%;}
+.program-item span:nth-child(2) {width: 25%; text-align: center;}
+.program-item span:nth-child(3) {width: 30%; text-align: right;}
+@media (min-width: 768px) {
+    .program-item span:nth-child(1) {width: 120px;}
+    .program-item span:nth-child(2) {width: 80px;}
+    .program-item span:nth-child(3) {width: 80px;}
+}
+.more-btn {
+    margin-top: 15px;
+    text-align: right;
+}
+.more-btn button {
+    background: #0288d1;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    outline: 2px solid transparent;
+    transition: background 0.2s;
+    font-size: 12px;
+}
+.more-btn button:hover {
+    background: #01579b;
+}
+.more-btn button:focus {
+    outline-color: #81d4fa;
+}
+.video-container {
+    display: flex;
+    /* 保留原有样式不变 */
+    flex-wrap: nowrap; /* 防止子元素换行 */
+    width: 100%;
+    max-width: 100%; /* 取消最大宽度限制，适应所有屏幕 */
+    height: auto; /* 由内容自动撑开高度 */
+}.play-area {
+    flex: 3;
+    /* 保留原有样式不变 */
+    aspect-ratio: 16/9; /* 维持视频比例，随屏幕缩放 */
+    min-height: 150px; /* 进一步降低小屏最小高度，避免溢出 */
+    width: 100%; /* 占满父容器宽度 */
+}
+.program-column {
+    flex: 1;
+    /* 保留原有样式不变 */
+    min-width: 180px; /* 小屏最小宽度，防止内容挤乱 */
+    width: 100%; /* 自适应父容器宽度 */
+}
+@media (max-width: 480px) {
+    .program-item span {
+        font-size: 11px; /* 缩小字体，避免文字溢出 */
+    }
+    .program-item span:nth-child(1) {width: 40%;}
+    .program-item span:nth-child(2) {width: 30%;}
+    .program-item span:nth-child(3) {width: 30%;}
+}
+

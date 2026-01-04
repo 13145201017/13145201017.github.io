@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅游攻略专题</title>
+    <!-- 引入自定义CSS文件 -->
+    <link rel="stylesheet" href="luyou.css">
+</head>
+<body class="bg-nature-light p-4 md:p-6">
+<!-- 导航菜单（修改class为统一命名） -->
+<div class="full-width-nav bg-white shadow-md border-b border-nature-light">
+    <div class="container mx-auto px-4">
+        <ul class="flex flex-wrap justify-center md:justify-start">
+            <li class="flex-1 min-w-[120px] text-center">
+                <a href="index.html" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">返回首页</a>
+            </li>
+            <li class="flex-1 min-w-[120px] text-center">
+                <a href="#hot-destinations" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">热门目的地</a>
+            </li>
+            <li class="flex-1 min-w-[120px] text-center">
+                <a href="#strategy-category" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">攻略分类</a>
+            </li>
+            <li class="flex-1 min-w-[120px] text-center">
+                <a href="#season-recommend" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">季节推荐</a>
+            </li>
+            <li class="flex-1 min-w-[120px] text-center">
+                <a href="#travel-tips" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">旅行贴士</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+    <!-- 横幅滚动标语 -->
+    <div class="bg-nature-main text-white rounded-lg shadow-md mb-6 p-3 text-center overflow-hidden">
+        <p class="text-animate font-medium">
+            身未动，心已远 | 探索自然美景，发现旅行乐趣 | 精选攻略，伴你同行
+        </p>
+    </div>
+
+    <!-- 热门目的地卡片 -->
+    <h2 class="text-xl md:text-2xl font-bold text-nature-dark mb-4" id="hot-destinations">热门目的地</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover">
+            <img src="黄山.jpg" alt="黄山" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h3 class="font-bold text-lg text-nature-dark">黄山</h3>
+                <p class="text-sm text-gray-600 mb-2">云海、奇松、怪石，四季皆景</p>
+                <a href="#huangshan-detail" class="text-nature-main text-sm hover:underline">查看详细攻略 →</a>
+            </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover">
+            <img src="kanas1.jpg" alt="喀纳斯" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h3 class="font-bold text-lg text-nature-dark">喀纳斯</h3>
+                <p class="text-sm text-gray-600 mb-2">人间净土，秋日童话世界</p>
+                <a href="" class="text-nature-main text-sm hover:underline">查看详细攻略 →</a>
+            </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover">
+            <img src="稻城亚丁.jpg" alt="稻城亚丁" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h3 class="font-bold text-lg text-nature-dark">稻城亚丁</h3>
+                <p class="text-sm text-gray-600 mb-2">蓝色星球上的最后一片净土</p>
+                <a href="" class="text-nature-main text-sm hover:underline">查看详细攻略 →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 攻略分类列表 -->
+    <h2 class="text-xl md:text-2xl font-bold text-nature-dark mb-4" id="strategy-category">旅游攻略分类</h2>
+    <div class="bg-white rounded-lg shadow-md border border-nature-light p-4 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-3">
+                <div class="p-3 border border-nature-light rounded-lg hover:bg-nature-light/50 transition-colors duration-200">
+                    <h4 class="font-semibold text-nature-dark">【自由行攻略】黄山3日游</h4>
+                    <p class="text-xs text-gray-500">适合人群：情侣、摄影爱好者 | 最佳季节：春秋</p>
+                </div>
+                <div class="p-3 border border-nature-light rounded-lg hover:bg-nature-light/50 transition-colors duration-200">
+                    <h4 class="font-semibold text-nature-dark">【亲子游攻略】桂林漓江泛舟</h4>
+                    <p class="text-xs text-gray-500">适合人群：家庭出游 | 最佳季节：夏季</p>
+                </div>
+                <div class="p-3 border border-nature-light rounded-lg hover:bg-nature-light/50 transition-colors duration-200">
+                    <h4 class="font-semibold text-nature-dark">【徒步攻略】张家界天门山环线</h4>
+                    <p class="text-xs text-gray-500">适合人群：徒步爱好者 | 最佳季节：秋季</p>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <div class="p-3 border border-nature-light rounded-lg hover:bg-nature-light/50 transition-colors duration-200">
+                    <h4 class="font-semibold text-nature-dark">【摄影攻略】喀纳斯秋日采风</h4>
+                    <p class="text-xs text-gray-500">适合人群：摄影发烧友 | 最佳季节：9-10月</p>
+                </div>
+                <div class="p-3 border border-nature-light rounded-lg hover:bg-nature-light/50 transition-colors duration-200">
+                    <h4 class="font-semibold text-nature-dark">【自驾攻略】青海湖环湖之旅</h4>
+                    <p class="text-xs text-gray-500">适合人群：自驾爱好者 | 最佳季节：7-8月</p>
+                </div>
+                <div class="p-3 border border-nature-light rounded-lg hover:bg-nature-light/50 transition-colors duration-200">
+                    <h4 class="font-semibold text-nature-dark">【小众攻略】西双版纳雨林探秘</h4>
+                    <p class="text-xs text-gray-500">适合人群：小众游玩家 | 最佳季节：冬季</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 季节推荐模块 -->
+    <h2 class="text-xl md:text-2xl font-bold text-nature-dark mb-4" id="season-recommend">季节旅游推荐</h2>
+    <!-- 季节推荐模块 -->
+<h2 class="text-xl md:text-2xl font-bold text-nature-dark mb-4" id="season-recommend">季节旅游推荐</h2>
+<div class="bg-white rounded-lg shadow-md border border-nature-light p-4 mb-8">
+    <div class="flex flex-wrap gap-3">
+        <button class="season-btn px-4 py-2 bg-nature-main text-white rounded-full text-sm hover:bg-nature-dark transition-colors duration-200 active" 
+                data-season="spring">春季赏花</button>
+        <button class="season-btn px-4 py-2 bg-nature-light text-nature-dark rounded-full text-sm hover:bg-nature-light/80 transition-colors duration-200" 
+                data-season="summer">夏季避暑</button>
+        <button class="season-btn px-4 py-2 bg-nature-light text-nature-dark rounded-full text-sm hover:bg-nature-light/80 transition-colors duration-200" 
+                data-season="autumn">秋季赏叶</button>
+        <button class="season-btn px-4 py-2 bg-nature-light text-nature-dark rounded-full text-sm hover:bg-nature-light/80 transition-colors duration-200" 
+                data-season="winter">冬季赏雪</button>
+    </div>
+    
+    <!-- 季节内容展示区域 -->
+    <div id="season-content-spring" class="season-content show">
+        <h4>🌸 春季赏花推荐</h4>
+        <div class="season-grid">
+            <div class="season-item">
+                <h5>江西婺源</h5>
+                <p>油菜花海、徽派建筑、田园风光</p>
+                <span class="season-tag">3-4月最佳</span>
+            </div>
+            <div class="season-item">
+                <h5>武汉大学</h5>
+                <p>樱花大道、百年学府、浪漫春天</p>
+                <span class="season-tag">3月下旬</span>
+            </div>
+            <div class="season-item">
+                <h5>云南罗平</h5>
+                <p>世界最大油菜花海、喀斯特地貌</p>
+                <span class="season-tag">2-3月最佳</span>
+            </div>
+            <div class="season-item">
+                <h5>无锡鼋头渚</h5>
+                <p>世界三大赏樱胜地之一</p>
+                <span class="season-tag">3-4月花期</span>
+            </div>
+        </div>
+    </div>
+    
+    <div id="season-content-summer" class="season-content">
+        <h4>🌊 夏季避暑推荐</h4>
+        <div class="season-grid">
+            <div class="season-item">
+                <h5>贵州六盘水</h5>
+                <p>中国凉都、平均温度19℃</p>
+                <span class="season-tag">6-8月最佳</span>
+            </div>
+            <div class="season-item">
+                <h5>承德避暑山庄</h5>
+                <p>皇家园林、历史遗迹、清凉宜人</p>
+                <span class="season-tag">夏季避暑</span>
+            </div>
+            <div class="season-item">
+                <h5>青海湖</h5>
+                <p>高原蓝宝石、油菜花海、骑行天堂</p>
+                <span class="season-tag">7-8月最佳</span>
+            </div>
+            <div class="season-item">
+                <h5>北戴河</h5>
+                <p>海滨浴场、海鲜美食、疗养胜地</p>
+                <span class="season-tag">夏季海滨</span>
+            </div>
+        </div>
+    </div>
+    
+    <div id="season-content-autumn" class="season-content">
+        <h4>🍂 秋季赏叶推荐</h4>
+        <div class="season-grid">
+            <div class="season-item">
+                <h5>北京香山</h5>
+                <p>红叶满山、皇家园林、秋色迷人</p>
+                <span class="season-tag">10月中旬-11月</span>
+            </div>
+            <div class="season-item">
+                <h5>新疆喀纳斯</h5>
+                <p>金色童话世界、湖光山色</p>
+                <span class="season-tag">9月下旬-10月</span>
+            </div>
+            <div class="season-item">
+                <h5>南京栖霞山</h5>
+                <p>金陵第一明秀山、枫叶景观</p>
+                <span class="season-tag">11月最佳</span>
+            </div>
+            <div class="season-item">
+                <h5>四川九寨沟</h5>
+                <p>五彩斑斓的童话世界</p>
+                <span class="season-tag">10月最美</span>
+            </div>
+        </div>
+    </div>
+    
+    <div id="season-content-winter" class="season-content">
+        <h4>❄️ 冬季赏雪推荐</h4>
+        <div class="season-grid">
+            <div class="season-item">
+                <h5>哈尔滨冰雪大世界</h5>
+                <p>冰雪奇观、冰雕艺术、异国风情</p>
+                <span class="season-tag">12月-2月</span>
+            </div>
+            <div class="season-item">
+                <h5>吉林雾凇岛</h5>
+                <p>雾凇奇观、冰雪仙境</p>
+                <span class="season-tag">12月-2月最佳</span>
+            </div>
+            <div class="season-item">
+                <h5>长白山</h5>
+                <p>天池雪景、温泉滑雪</p>
+                <span class="season-tag">冬季滑雪</span>
+            </div>
+            <div class="season-item">
+                <h5>张家界</h5>
+                <p>雪中仙境、雾凇云海</p>
+                <span class="season-tag">12月-2月</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- 旅行贴士模块 -->
+    <h2 class="text-xl md:text-2xl font-bold text-nature-dark mb-4" id="travel-tips">旅行贴士</h2>
+    <div class="bg-white rounded-lg shadow-md border border-nature-light p-4 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-3">
+                <h4 class="font-semibold text-nature-dark border-b border-nature-light pb-2">行前准备</h4>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li class="flex items-start">
+                        <span class="text-nature-main mr-2">✓</span>
+                        <span>提前查询目的地的天气情况，准备合适的衣物</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-nature-main mr-2">✓</span>
+                        <span>预订好机票、火车票和住宿，旺季需提前</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-nature-main mr-2">✓</span>
+                        <span>准备好身份证、护照等必要证件</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-nature-main mr-2">✓</span>
+                        <span>准备常用药品：感冒药、肠胃药、创可贴等</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h4 class="font-semibold text-nature-dark border-b border-nature-light pb-2">安全须知</h4>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li class="flex items-start">
+                        <span class="text-nature-main mr-2">✓</span>
+                        <span>山区旅游注意防滑，穿着防滑鞋</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-nature-main mr-2">✓</span>
+                        <span>高原地区注意预防高原反应</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-nature-main mr-2">✓</span>
+                        <span>保管好贵重物品，随身携带重要证件</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-nature-main mr-2">✓</span>
+                        <span>遵守景区规定，不进入未开发区域</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 目的地详情 -->
+    <div class="bg-white rounded-lg shadow-md border border-nature-light p-6 mb-6">
+        <h3 class="text-xl font-bold text-nature-dark mb-4" id="huangshan-detail">黄山详细攻略</h3>
+        <div class="space-y-4">
+            <p class="text-gray-700"><strong>最佳旅游时间：</strong>4-10月，其中春季（4-5月）杜鹃盛开，秋季（9-10月）云海频现</p>
+            <p class="text-gray-700"><strong>必游景点：</strong>迎客松、光明顶、西海大峡谷、始信峰、莲花峰</p>
+            <p class="text-gray-700"><strong>推荐行程：</strong>3天2晚，第一天登山，第二天看日出，第三天游览周边</p>
+            <p class="text-gray-700"><strong>交通指南：</strong>高铁至黄山北站，转乘景区大巴；或飞机至黄山机场</p>
+            <p class="text-gray-700"><strong>住宿建议：</strong>山顶酒店（方便看日出），或山脚汤口镇（性价比高）</p>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md border border-nature-light p-6 mb-6">
+        <h3 class="text-xl font-bold text-nature-dark mb-4" id="kanas-detail">喀纳斯详细攻略</h3>
+        <div class="space-y-4">
+            <p class="text-gray-700"><strong>最佳旅游时间：</strong>6-10月，其中9月下旬至10月上旬为最佳</p>
+            <p class="text-gray-700"><strong>必游景点：</strong>喀纳斯湖、观鱼台、月亮湾、神仙湾、禾木村</p>
+            <p class="text-gray-700"><strong>推荐行程：</strong>5-7天，深度游览喀纳斯及周边禾木、白哈巴</p>
+            <p class="text-gray-700"><strong>交通指南：</strong>飞机至阿勒泰或喀纳斯机场，或从乌鲁木齐自驾</p>
+            <p class="text-gray-700"><strong>特色体验：</strong>图瓦人家访、骑马穿越、星空摄影、秋季采风</p>
+        </div>
+    </div>
+
+    <script>
+        // 优化滚动性能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 防止滚动过快
+            let isScrolling = false;
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    if (isScrolling) return;
+                    isScrolling = true;
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const headerOffset = 80;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                    
+                    // 防止连续滚动
+                    setTimeout(() => {
+                        isScrolling = false;
+                    }, 500);
+                });
+            });
+        });
+        // 季节推荐功能
+document.addEventListener('DOMContentLoaded', function() {
+    const seasonButtons = document.querySelectorAll('.season-btn');
+    const seasonContents = document.querySelectorAll('.season-content');
+    
+    // 添加点击涟漪效果
+    function addRippleEffect(button) {
+        button.classList.add('ripple');
+        setTimeout(() => {
+            button.classList.remove('ripple');
+        }, 600);
+    }
+    
+    // 切换季节显示
+    function showSeason(season) {
+        // 隐藏所有季节内容
+        seasonContents.forEach(content => {
+            content.classList.remove('show');
+        });
+        
+        // 显示选中的季节内容
+        const selectedContent = document.getElementById(`season-content-${season}`);
+        if (selectedContent) {
+            setTimeout(() => {
+                selectedContent.classList.add('show');
+            }, 50);
+        }
+        
+        // 更新按钮状态
+        seasonButtons.forEach(button => {
+            if (button.dataset.season === season) {
+                button.classList.add('active');
+                button.style.backgroundColor = '#2f855a';
+                button.style.color = 'white';
+            } else {
+                button.classList.remove('active');
+                button.style.backgroundColor = '';
+                button.style.color = '';
+            }
+        });
+    }
+    
+    // 为每个按钮添加点击事件
+    seasonButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const season = this.dataset.season;
+            
+            // 添加涟漪效果
+            addRippleEffect(this);
+            
+            // 切换季节内容
+            showSeason(season);
+            
+            // 滚动到季节内容区域（如果内容被隐藏）
+            const content = document.getElementById(`season-content-${season}`);
+            if (!content.classList.contains('show')) {
+                setTimeout(() => {
+                    content.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        });
+    });
+    
+    // 初始显示春季内容
+    showSeason('spring');
+    
+    // 添加键盘导航支持
+    document.addEventListener('keydown', function(e) {
+        const activeSeason = document.querySelector('.season-btn.active');
+        if (!activeSeason) return;
+        
+        const currentSeason = activeSeason.dataset.season;
+        let nextSeason = '';
+        
+        switch(e.key) {
+            case 'ArrowLeft':
+                e.preventDefault();
+                switch(currentSeason) {
+                    case 'spring': nextSeason = 'winter'; break;
+                    case 'summer': nextSeason = 'spring'; break;
+                    case 'autumn': nextSeason = 'summer'; break;
+                    case 'winter': nextSeason = 'autumn'; break;
+                }
+                break;
+            case 'ArrowRight':
+                e.preventDefault();
+                switch(currentSeason) {
+                    case 'spring': nextSeason = 'summer'; break;
+                    case 'summer': nextSeason = 'autumn'; break;
+                    case 'autumn': nextSeason = 'winter'; break;
+                    case 'winter': nextSeason = 'spring'; break;
+                }
+                break;
+            case '1': nextSeason = 'spring'; break;
+            case '2': nextSeason = 'summer'; break;
+            case '3': nextSeason = 'autumn'; break;
+            case '4': nextSeason = 'winter'; break;
+        }
+        
+        if (nextSeason) {
+            const button = document.querySelector(`.season-btn[data-season="${nextSeason}"]`);
+            if (button) {
+                button.click();
+            }
+        }
+    });
+});
+    </script>
+</body>
+</html>

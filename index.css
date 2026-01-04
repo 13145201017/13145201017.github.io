@@ -1,0 +1,152 @@
+html {
+    scroll-behavior: smooth;
+}
+
+/* 菜单栏铺满样式 */
+.full-width-nav {
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.animate-text .char {
+    opacity: 0;
+    animation: char-fade 0.4s ease forwards;
+}
+
+@keyframes char-fade {
+    from {
+        opacity: 0;
+        transform: translateY(3px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 卡片悬停效果 */
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.img-news-img-container {
+align-self: stretch; /* 让图片容器与文字等高 */
+}
+
+.img-news-img {
+height: 100%;
+}
+.footer-link {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .footer-link:hover {
+    transform: translateX(6px); /* hover向右平移，动感十足 */
+    background: rgba(72, 187, 120, 0.25) !important;
+    text-shadow: 0 0 3px rgba(255,255,255,0.3);
+  }
+  
+  .footer-link:active {
+    transform: translateX(3px); /* 点击后平移幅度减小，模拟按压回弹 */
+    background: rgba(72, 187, 120, 0.35) !important;
+  }
+  
+  /* 底部友情链接下划线动画（hover时从左到右渐变） */
+  .footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, #48bb78, #ffffff);
+    transition: width 0.3s ease;
+  }
+  
+  .footer-link:hover::after {
+    width: 100%;
+  }
+  
+  /* 弹窗友情链接（浅色背景）点击效果 */
+  .popup-link {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .popup-link:hover {
+    transform: translateY(-2px); /* hover向上上浮 */
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.15);
+    border-color: #48bb78 !important;
+  }
+  
+  .popup-link:active {
+    transform: translateY(0); /* 点击后回落，模拟按压 */
+    box-shadow: 0 2px 6px rgba(72, 187, 120, 0.1);
+  }
+  
+  /* 弹窗友情链接图标旋转动画 */
+  .popup-link:hover svg {
+    transform: rotate(10deg); /* hover时图标轻微旋转 */
+    transition: transform 0.3s ease;
+  }
+  /* 新增搜索栏整合样式 */
+  .header-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.search-mini {
+    flex: 1;
+    min-width: 250px;
+}
+
+.search-mini .engine-selector {
+    width: 120px;
+}
+
+.search-mini .engine-selected {
+    padding: 6px 10px;
+}
+
+.search-mini #search-input {
+    padding: 6px 36px 6px 30px;
+    font-size: 14px;
+}
+
+.search-mini #search-button,
+.search-mini #reset-search {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.search-mini .engine-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.search-mini .search-suggestions {
+    font-size: 12px;
+}
+
+.search-mini .search-suggestion-btn {
+    padding: 2px 8px;
+    font-size: 12px;
+}
+  
+       

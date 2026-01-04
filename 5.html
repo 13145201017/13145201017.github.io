@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人自我介绍</title>
+    <!-- 引入单独的CSS文件 -->
+    <link rel="stylesheet" href="geren.css">
+    <link rel="stylesheet" href="luyou.css">
+</head>
+<body>
+    <div class="full-width-nav bg-white shadow-md border-b border-nature-light">
+        <div class="container mx-auto px-4">
+            <ul class="flex flex-wrap justify-center md:justify-start">
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="index.html" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">返回首页</a>
+                </li>
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="#home" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">个人首页</a>
+                </li>
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="#basic-info" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">基本信息</a>
+                </li>
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="#skills" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">技能清单</a>
+                </li>
+                <li class="flex-1 min-w-[120px] text-center">
+                    <a href="#thoughts" class="block px-4 py-3 md:py-4 text-nature-dark hover:bg-nature-main hover:text-white transition-all duration-300 font-medium text-sm md:text-base">个人感悟</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 横幅滚动标语 -->
+    <div class="banner-scroll">
+        <p class="text-animate">
+            热爱生活 · 乐于探索 · 持续成长 | 保持热爱，奔赴山海 | 努力成为更好的自己
+        </p>
+    </div>
+
+    <!-- 顶部横幅 -->
+    <header class="header" id="home">
+        <h1 class="header-title">胡萝卜</h1>
+        <p class="header-subtitle">一个不热爱学习的学生，但会因为无聊而学习非学校教授的学生。也是一个自E的人</p>
+    </header>
+
+    <!-- 个人信息卡片 -->
+    <main class="main">
+        <!-- 基本信息 -->
+        <section class="card" id="basic-info">
+            <h2 class="card-title">基本信息</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-icon">职</span>
+                    <div class="info-content">
+                        <h3>职业</h3>
+                        <p>一个不热爱学习的学生。喜欢直言直语的言语行为学者，心理学爱好者</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">爱</span>
+                    <div class="info-content">
+                        <h3>兴趣</h3>
+                        <p>种植，畜养，不定时努力学习的学生</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">技</span>
+                    <div class="info-content">
+                        <h3>特长</h3>
+                        <p>特爱吃,特爱玩（但实力不详的游戏水平）。</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">愿</span>
+                    <div class="info-content">
+                        <h3>愿景</h3>
+                        <p>［百万富翁，职业的先驱，世界的顶流］<p>只愿得一人心</p></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技能展示 -->
+        <section class="card" id="skills">
+            <h2 class="card-title">技能清单</h2>
+            <div class="skills-grid">
+                <div class="skill-item">不堪入目的HTML/CSS</div>
+                <div class="skill-item">烧掉头发的JavaScript</div>
+                <div class="skill-item">不会使用的C语言</div>
+                <div class="skill-item">言辞叙述不好的小说家</div>
+                <div class="skill-item">无成就的经济学学者</div>
+                <div class="skill-item">无经验的法学爱好者</div>
+            </div>
+        </section>
+
+        <!-- 个人感悟 -->
+        <section class="card" id="thoughts">
+            <h2 class="card-title">个人感悟</h2>
+            <p class="thoughts">
+                [本以为是个一事无成之人，再看乃一个非人之人，唉π_π人生坚难，你我皆牛马]
+              <p> 人生是一场不断探索的旅程，每一步都值得用心去走。保持热爱，奔赴山海，
+                努力成为更好的自己。</p>
+            </p>
+        </section>
+    </main>
+
+    <!-- 底部信息 -->
+    <footer class="footer">
+        <p>联系方式：<a href="mailto:243 8338134@qq.com">2438338134@qq.com</a></p>
+    </footer>
+
+    <!-- 页面加载动画和平滑滚动 -->
+    <script>
+        // 页面加载动画
+        window.addEventListener('load', () => {
+            document.body.classList.add('opacity-100');
+        });
+
+        // 平滑滚动功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 防止滚动过快
+            let isScrolling = false;
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    if (isScrolling) return;
+                    isScrolling = true;
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const headerOffset = 80;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                    
+                    // 防止连续滚动
+                    setTimeout(() => {
+                        isScrolling = false;
+                    }, 500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
