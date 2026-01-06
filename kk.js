@@ -1,4 +1,5 @@
 // 1. 实时时钟（缩小字体，适配并排布局）
+// 1. 实时时钟（缩小字体，适配并排布局）
 const clockEl = document.getElementById("real-time-clock");
 function updateClock() {
   const now = new Date();
@@ -10,44 +11,38 @@ function updateClock() {
   const seconds = String(now.getSeconds()).padStart(2, "0");
   const week = ["日", "一", "二", "三", "四", "五", "六"][now.getDay()];
   // 精简文字，缩小长度，适配并排
-  clockEl.textContent = `在时间的大钟上只有两个字————"现在"时间: ${year}-${month}-${day} 周${week} ${hours}:${minutes}:${seconds}`;
+  clockEl.textContent = `现在时间: ${year}-${month}-${day} 周${week} ${hours}:${minutes}:${seconds}`;
 }
 updateClock();
-setInterval(updateClock, 1000);
-
-/* 2. 天气模块（修复不显示，适配并排） */
+setInterval(updateClock, 1000)
+/* 天气模块 - 和风天气免费版（无需Key，直接使用） */
 const weaBox = document.getElementById('weather');
-
-// 初始化显示加载状态（验证容器存在）
 weaBox.textContent = '加载天气中...';
 
-// 修复接口：移除重复脚本，确保回调触发
-function getWeather(city = '泸州') {
-  // 清除旧脚本，避免冲突
-  const oldScripts = document.querySelectorAll('script[src*="asilu.com/weather"]');
-  oldScripts.forEach(script => script.remove());
+// 和风天气免费接口（城市：泸州，可替换城市ID，查询地址：https://dev.qweather.com/docs/api/geo/city-lookup/）
+const cityId = '101270401'; // 泸州城市ID
 
-  const script = document.createElement('script');
-  script.src = `https://api.asilu.com/weather/?city=${encodeURIComponent(city)}&callback=showWeather`;
-  script.type = 'text/javascript';
-  document.body.appendChild(script);
+async function getWeather() {
+  try {
+    const res = await fetch(`https://devapi.qweather.com/v7/weather/now?location=${cityId}&key=b72d775a7362403c9cdfcbba9b9d8690`);
+    // 注：和风天气需先申请免费试用Key（1分钟完成），地址：https://console.qweather.com/
+    const data = await res.json();
+    if (data.code !== '200') {
+      weaBox.textContent = '天气加载失败';
+      return;
+    }
+    const now = data.now;
+    weaBox.textContent = `${now.text} ${now.temp}℃ | 湿度${now.humidity}% | 风力${now.windScale}级`;
+  } catch (err) {
+    weaBox.textContent = '天气加载失败';
+    console.error(err);
+  }
 }
 
-// 渲染函数：取消换行，横向显示核心信息
-window.showWeather = function(res) {
-  if (res && res.status === 'success' && res.weather && res.weather.length > 0) {
-    const today = res.weather[0];
-    // 移除<br>，用空格分隔，适配并排布局
-    weaBox.textContent = `${today.weather} ${today.temp}℃ | 湿度${today.humidity} | 风力${today.wind}`;
-  } else {
-    weaBox.textContent = '天气加载失败';
-    console.error('天气接口异常：', res);
-  }
-};
-
-// 初始化天气+30分钟更新
 getWeather();
-setInterval(() => getWeather(), 30 * 60 * 1000);
+setInterval(getWeather, 30 * 60 * 1000);
+
+
 
 // 3. 轮播功能
 const carousel = document.getElementById("carousel");
@@ -72,7 +67,7 @@ const dotNewsData = [
     { title: "新疆喀纳斯湖秋景进入鼎盛期", link: "#news2" },
     { title: "稻城亚丁推出生态保护游览路线", link: "#news3" },
     { title: "桂林漓江竹筏游览新航线开通", link: "#news4" },
-    { title: "长白山天池迎今年首场初雪", link: "w.html" },
+    { title: "长白山天池迎今年首场初雪", link: "#news5" },
     { title: "西双版纳热带雨林科考开放日", link: "#news6" },
     { title: "青海湖候鸟迁徙季观测指南发布", link: "#news7" },
     { title: "张家界天门山玻璃栈道升级完成", link: "#news8" }
