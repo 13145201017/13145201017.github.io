@@ -72,7 +72,7 @@ const dotNewsData = [
     { title: "新疆喀纳斯湖秋景进入鼎盛期", link: "#news2" },
     { title: "稻城亚丁推出生态保护游览路线", link: "#news3" },
     { title: "桂林漓江竹筏游览新航线开通", link: "#news4" },
-    { title: "长白山天池迎今年首场初雪", link: "#news5" },
+    { title: "长白山天池迎今年首场初雪", link: "#w.html" },
     { title: "西双版纳热带雨林科考开放日", link: "#news6" },
     { title: "青海湖候鸟迁徙季观测指南发布", link: "#news7" },
     { title: "张家界天门山玻璃栈道升级完成", link: "#news8" }
