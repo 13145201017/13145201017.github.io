@@ -73,6 +73,40 @@
             font-size: 12px;
         }
         
+        /* 天气模块样式 */
+#weather-container {
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.weather-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.weather-icon {
+  font-size: 18px;
+}
+
+.weather-temp {
+  font-weight: 600;
+}
+
+.weather-error {
+  color: #ff6b6b;
+  font-size: 14px;
+}
+
+.weather-extra {
+  font-size: 12px;
+  color: #666;
+}
     </style>
 </head>
 <!-- 安全标识顶部栏 -->
@@ -91,7 +125,8 @@
         <div class="header-row container mx-auto">
             <div id="real-time-clock" class="text-xl font-semibold text-nature-dark"></div>
             <div id="weather" class="text-right text-nature-dark"></div>
-            
+            <!-- 天气容器 -->
+<div id="weather-container"></div>
             <!-- 缩小的搜索栏模块 -->
             <div class="search-mini">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-2">
@@ -657,7 +692,7 @@
     </div>
   </div>
   </div>
-  
+    <script src="12.js"></script>
     <script src="logo.js"></script>
     <script src="sou.js"></script>
     <script src="kk.js"></script>
