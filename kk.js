@@ -166,16 +166,81 @@ renderImgNews();
 document.getElementById('footer-report-btn').addEventListener('click', () => {
   document.getElementById('report-modal').classList.remove('hidden');
 });
+// 友情链接弹窗核心逻辑
+document.addEventListener('DOMContentLoaded', function() {
+  // 1. 获取DOM元素
+  const friendLinkPopup = document.getElementById('friendLinkPopup');
+  const closePopupBtn = document.getElementById('closePopup');
+  const skipPopupBtn = document.getElementById('skipPopup');
+  const dontShowAgainCheckbox = document.getElementById('dontShowAgain');
+  const popupMask = friendLinkPopup; // 遮罩层与弹窗容器共用
 
-// 关闭弹窗
-document.getElementById('close-report-modal').addEventListener('click', () => {
-  document.getElementById('report-modal').classList.add('hidden');
+  // 2. 检查是否需要显示弹窗（24小时内不重复）
+  function checkShowPopup() {
+    const lastPopupTime = localStorage.getItem('lastFriendLinkPopup');
+    const now = Date.now();
+    // 若存在缓存且未超过24小时（86400000毫秒），则不显示
+    if (lastPopupTime && (now - lastPopupTime) < 86400000) {
+      return false;
+    }
+    return true;
+  }
+
+  // 3. 显示弹窗（触发时机：页面加载完成3秒后 / 或绑定到搜索/点击事件）
+  function showFriendLinkPopup() {
+    if (!checkShowPopup()) return;
+    // 延迟3秒显示，避免页面加载时突兀
+    setTimeout(() => {
+      friendLinkPopup.classList.remove('hidden');
+      // 记录弹窗显示时间
+      localStorage.setItem('lastFriendLinkPopup', Date.now().toString());
+    }, 3000);
+  }
+
+  // 4. 关闭弹窗
+  function closeFriendLinkPopup() {
+    friendLinkPopup.classList.add('hidden');
+    // 若勾选“24小时内不再显示”，更新缓存时间
+    if (dontShowAgainCheckbox.checked) {
+      localStorage.setItem('lastFriendLinkPopup', Date.now().toString());
+    }
+    // 重置复选框状态
+    dontShowAgainCheckbox.checked = false;
+  }
+
+  // 5. 绑定事件
+  // 关闭按钮（兼容触摸+点击）
+  closePopupBtn.addEventListener('click', closeFriendLinkPopup);
+  closePopupBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    closeFriendLinkPopup();
+  });
+
+  // 跳过按钮
+  skipPopupBtn.addEventListener('click', closeFriendLinkPopup);
+  skipPopupBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    closeFriendLinkPopup();
+  });
+
+  // 点击遮罩层关闭弹窗
+  popupMask.addEventListener('click', function(e) {
+    // 仅点击遮罩层（而非弹窗内容）时关闭
+    if (e.target === friendLinkPopup) {
+      closeFriendLinkPopup();
+    }
+  });
+
+  // 6. 初始化显示弹窗（可根据需求调整触发时机）
+  // 方式1：页面加载后自动显示（如上）
+  showFriendLinkPopup();
+
+  // 方式2：绑定到“搜索按钮点击”“页面滚动”等触发（示例）
+  // const searchBtn = document.getElementById('search-btn');
+  // if (searchBtn) {
+  //   searchBtn.addEventListener('click', showFriendLinkPopup);
+  // }
 });
-document.getElementById('cancel-report').addEventListener('click', () => {
-  document.getElementById('report-modal').classList.add('hidden');
-});
-
-
 
 // 表单提交：跳转官方举报渠道
 document.getElementById('report-form').addEventListener('submit', (e) => {
