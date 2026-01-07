@@ -1,5 +1,4 @@
 // 1. 实时时钟（缩小字体，适配并排布局）
-// 1. 实时时钟（缩小字体，适配并排布局）
 const clockEl = document.getElementById("real-time-clock");
 function updateClock() {
   const now = new Date();
@@ -11,114 +10,44 @@ function updateClock() {
   const seconds = String(now.getSeconds()).padStart(2, "0");
   const week = ["日", "一", "二", "三", "四", "五", "六"][now.getDay()];
   // 精简文字，缩小长度，适配并排
-  clockEl.textContent = `现在时间: ${year}-${month}-${day} 周${week} ${hours}:${minutes}:${seconds}`;
+  clockEl.textContent = `在时间的大钟上只有两个字————"现在"时间: ${year}-${month}-${day} 周${week} ${hours}:${minutes}:${seconds}`;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+/* 2. 天气模块（修复不显示，适配并排） */
+const weaBox = document.getElementById('weather');
+
+// 初始化显示加载状态（验证容器存在）
+weaBox.textContent = '加载天气中...';
+
+// 修复接口：移除重复脚本，确保回调触发
+function getWeather(city = '泸州') {
+  // 清除旧脚本，避免冲突
+  const oldScripts = document.querySelectorAll('script[src*="asilu.com/weather"]');
+  oldScripts.forEach(script => script.remove());
+
+  const script = document.createElement('script');
+  script.src = `https://api.asilu.com/weather/?city=${encodeURIComponent(city)}&callback=showWeather`;
+  script.type = 'text/javascript';
+  document.body.appendChild(script);
 }
 
-updateClock();
-setInterval(updateClock, 1000)
-/* 天气模块 - 和风天气免费版（无需Key，直接使用） */
-// 天气配置（替换为你的API Key和接口地址）
-const WEATHER_CONFIG = {
-  // 推荐使用和风天气免费接口（需先注册获取Key：https://dev.qweather.com/）
-  apiKey: "b72d775a7362403c9cdfcbba9b9d8690",
-  cityCode: "101010100", // 北京城市编码，可替换为目标城市
-  apiUrl: "https://devapi.qweather.com/v7/weather/now"
+// 渲染函数：取消换行，横向显示核心信息
+window.showWeather = function(res) {
+  if (res && res.status === 'success' && res.weather && res.weather.length > 0) {
+    const today = res.weather[0];
+    // 移除<br>，用空格分隔，适配并排布局
+    weaBox.textContent = `${today.weather} ${today.temp}℃ | 湿度${today.humidity} | 风力${today.wind}`;
+  } else {
+    weaBox.textContent = '天气加载失败';
+    console.error('天气接口异常：', res);
+  }
 };
 
-// 初始化天气模块
-function initWeather() {
-  const weatherContainer = document.getElementById('weather-container');
-  if (!weatherContainer) {
-    console.warn("未找到天气容器DOM，请检查id是否为weather-container");
-    return;
-  }
-
-  // 请求天气数据
-  fetchWeatherData()
-    .then(weatherData => {
-      renderWeather(weatherData, weatherContainer);
-    })
-    .catch(err => {
-      console.error("天气加载失败：", err);
-      weatherContainer.innerHTML = '<div class="weather-error">🌤️ 天气加载失败</div>';
-    });
-}
-
-// 请求天气接口数据
-async function fetchWeatherData() {
-  try {
-    // 拼接请求参数
-    const requestUrl = `${WEATHER_CONFIG.apiUrl}?key=${WEATHER_CONFIG.apiKey}&location=${WEATHER_CONFIG.cityCode}`;
-    const response = await fetch(requestUrl);
-    
-    // 检查接口响应状态
-    if (!response.ok) {
-      throw new Error(`接口请求失败：${response.status}`);
-    }
-    
-    const data = await response.json();
-    
-    // 检查接口返回错误
-    if (data.code !== "200") {
-      throw new Error(`天气接口返回错误：${data.msg || "未知错误"}`);
-    }
-    
-    // 提取核心天气数据
-    return {
-      temp: data.now.temp, // 温度
-      text: data.now.text, // 天气状况（晴/雨/多云等）
-      windDir: data.now.windDir, // 风向
-      humidity: data.now.humidity, // 湿度
-      city: data.location.name // 城市名称
-    };
-  } catch (err) {
-    // 兼容接口不可用的降级处理（模拟数据）
-    console.warn("接口请求失败，使用模拟数据：", err);
-    return {
-      temp: "25",
-      text: "多云",
-      windDir: "南风",
-      humidity: "60",
-      city: "本地"
-    };
-  }
-}
-
-// 渲染天气到页面
-function renderWeather(weatherData, container) {
-  // 天气图标映射（可根据需要扩展）
-  const weatherIconMap = {
-    "晴": "☀️",
-    "多云": "⛅",
-    "阴": "☁️",
-    "雨": "🌧️",
-    "雪": "❄️",
-    "风": "🌬️"
-  };
-  
-  const icon = weatherIconMap[weatherData.text] || "🌤️";
-  
-  // 拼接HTML结构
-  const weatherHtml = `
-    <div class="weather-info">
-      <span class="weather-icon">${icon}</span>
-      <span class="weather-temp">${weatherData.temp}℃</span>
-      <span class="weather-desc">${weatherData.text}</span>
-      <span class="weather-city">${weatherData.city}</span>
-      <span class="weather-extra">${weatherData.windDir} | 湿度${weatherData.humidity}%</span>
-    </div>
-  `;
-  
-  // 插入到容器中
-  container.innerHTML = weatherHtml;
-}
-
-// 页面加载完成后初始化天气
-document.addEventListener('DOMContentLoaded', function() {
-  initWeather();
-  // 可选：每30分钟刷新一次天气
-  setInterval(initWeather, 30 * 60 * 1000);
-});
+// 初始化天气+30分钟更新
+getWeather();
+setInterval(() => getWeather(), 30 * 60 * 1000);
 
 // 3. 轮播功能
 const carousel = document.getElementById("carousel");
@@ -245,6 +174,8 @@ document.getElementById('close-report-modal').addEventListener('click', () => {
 document.getElementById('cancel-report').addEventListener('click', () => {
   document.getElementById('report-modal').classList.add('hidden');
 });
+
+
 
 // 表单提交：跳转官方举报渠道
 document.getElementById('report-form').addEventListener('submit', (e) => {
