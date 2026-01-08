@@ -24,7 +24,67 @@
                 }
             }
         }
-    </script>
+    </script><!-- 放在页面底部、</body> 前面 -->
+<script>
+const realtimeData = {
+    iconText: '晴',
+    condition: '雾转阴',
+    temp: '12.4℃',
+    feels: '11.5℃',
+    humidity: '52%',
+    wind: '西北风 微风',
+    pressure: '991.9hPa',
+    aqi: '轻度污染(113)'
+};
+
+// 修复后的时间+日期更新函数
+function updateTime() {
+  const now = new Date();
+  // 时间
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+  // 确保元素存在再赋值（避免报错中断）
+  const timeEl = document.getElementById('current-time');
+  if (timeEl) timeEl.textContent = `${hours}:${minutes}:${seconds}`;
+  
+  // 日期
+  const year = now.getFullYear();
+  const month = (now.getMonth() + 1).toString().padStart(2, '0');
+  const day = now.getDate().toString().padStart(2, '0');
+  const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+  const weekday = weekdays[now.getDay()];
+  const dateEl = document.getElementById('current-date');
+  if (dateEl) dateEl.textContent = `${year}年${month}月${day}日 星期${weekday}`;
+}
+
+// 天气渲染
+const weatherEl = document.querySelector('.realtime-weather');
+if (weatherEl) {
+  weatherEl.innerHTML = `
+    <span id="realtime-icon" class="weather-text-icon">${realtimeData.iconText}</span>
+    <div class="weather-detail">
+        <div class="weather-main">
+            <span id="realtime-condition">${realtimeData.condition}</span>
+            <span id="realtime-temp">${realtimeData.temp}</span>
+        </div>
+        <div class="weather-meta">
+            <span>体感：<span id="realtime-feels">${realtimeData.feels}</span></span>
+            <span>湿度：<span id="realtime-humidity">${realtimeData.humidity}</span></span>
+            <span>风向：<span id="realtime-wind">${realtimeData.wind}</span></span>
+            <span>气压：<span id="realtime-pressure">${realtimeData.pressure}</span></span>
+            <span>空气质量：<span id="realtime-aqi">${realtimeData.aqi}</span></span>
+        </div>
+    </div>
+  `;
+}
+
+// 立即执行+定时刷新（确保不中断）
+updateTime();
+setInterval(updateTime, 1000);
+</script>
+
+
     <style>
         /* 新增搜索栏整合样式 */
         .header-row {
@@ -87,11 +147,28 @@
   
 <body class="bg-nature-light min-h-screen">
     <!-- 时间+天气+搜索栏横向并排模块 -->
-    <div class="bg-white p-4 shadow-md border-b border-nature-light">
-        <div class="header-row container mx-auto">
-            <div id="real-time-clock" class="text-xl font-semibold text-nature-dark"></div>
-            <div id="weather" class="text-right text-nature-dark"></div>
-            
+     <div class="top-banner">
+            <div class="time-section">
+                <h1 id="current-time">12:00:00</h1>
+                <p id="current-date">2026年01月09日 星期五</p>
+            </div>
+            <div class="realtime-weather">
+                <span id="realtime-icon" class="weather-text-icon">雾</span>
+                <div class="weather-detail">
+                    <div class="weather-main">
+                        <span id="realtime-condition">晴</span>
+                        <span id="realtime-temp">11.4℃</span>
+                    </div>
+                    <div class="weather-meta">
+                        <span>体感：<span id="realtime-feels">11.5℃</span></span>
+                        <span>湿度：<span id="realtime-humidity">51%</span></span>
+                        <span>风向：<span id="realtime-wind">西南风 微风</span></span>
+                        <span>气压：<span id="realtime-pressure">976.9hPa</span></span>
+                        <span>空气质量：<span id="realtime-aqi">轻度污染(112)</span></span>
+                    </div>
+                </div>
+            </div>
+
             <!-- 缩小的搜索栏模块 -->
             <div class="search-mini">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-2">
