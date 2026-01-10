@@ -1,14 +1,16 @@
 
 
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>旅游推荐</title>
-    <!-- 引入Tailwind CSS -->
-    <script src="jj.css"></script>
-    <script src="index.css"></script>
+<script src="jj.css"></script>
+<link rel="stylesheet" href="beij.css">
+    
+    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="shp.css">
     <link rel="stylesheet" href="sou.css">
     <script>
@@ -25,7 +27,8 @@
                 }
             }
         }
-    </script><!-- 放在页面底部、</body> 前面 -->
+    </script>
+
 <script>
 const realtimeData = {
     iconText: '晴',
@@ -33,7 +36,7 @@ const realtimeData = {
     temp: '12.4℃',
     feels: '11.5℃',
     humidity: '52%',
-    wind: '西北风 微风',
+    wind: '北风 微风',
     pressure: '991.9hPa',
     aqi: '轻度污染(113)'
 };
@@ -84,7 +87,6 @@ if (weatherEl) {
 updateTime();
 setInterval(updateTime, 1000);
 </script>
-
 
     <style>
         /* 新增搜索栏整合样式 */
@@ -162,7 +164,7 @@ setInterval(updateTime, 1000);
                         <span id="realtime-temp">11.4℃</span>
      <span>体感：<span id="realtime-feels">11.5℃</span></span>
                         <span>湿度：<span id="realtime-humidity">51%</span></span>
-                        <span>风向：<span id="realtime-wind">西北风 微风</span></span>
+                        <span>风向：<span id="realtime-wind">北风 微风</span></span>
       </div>
                 </div>
                 </div>
@@ -712,5 +714,6 @@ setInterval(updateTime, 1000);
     <script src="logo.js"></script>
     <script src="sou.js"></script>
     <script src="kk.js"></script>
+    <script src="beij.js"></script>
 </body>
 </html>
