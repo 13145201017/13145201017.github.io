@@ -1,66 +1,19 @@
-// 1. 实时时钟（缩小字体，适配并排布局）
-const clockEl = document.getElementById("real-time-clock");
-function updateClock() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
-  const hours = String(now.getHours()).padStart(2, "0");
-  const minutes = String(now.getMinutes()).padStart(2, "0");
-  const seconds = String(now.getSeconds()).padStart(2, "0");
-  const week = ["日", "一", "二", "三", "四", "五", "六"][now.getDay()];
-  // 精简文字，缩小长度，适配并排
-  clockEl.textContent = `在时间的大钟上只有两个字————"现在"时间: ${year}-${month}-${day} 周${week} ${hours}:${minutes}:${seconds}`;
-}
-updateClock();
-setInterval(updateClock, 1000);
+// 3. 轮播功能（修复版）
+document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.getElementById("carousel");
+    if (!carousel) return;
 
-/* 2. 天气模块（修复不显示，适配并排） */
-const weaBox = document.getElementById('weather');
+    const slides = carousel.children;
+    let currentIndex = 0;
 
-// 初始化显示加载状态（验证容器存在）
-weaBox.textContent = '加载天气中...';
+    function moveCarousel() {
+        const slideHeight = slides[0].offsetHeight;
+        currentIndex = (currentIndex + 1) % slides.length;
+        carousel.style.transition = "transform 0.5s ease";
+        carousel.style.transform = `translateY(-${currentIndex * slideHeight}px)`;
+    }
 
-// 修复接口：移除重复脚本，确保回调触发
-function getWeather(city = '泸州') {
-  // 清除旧脚本，避免冲突
-  const oldScripts = document.querySelectorAll('script[src*="asilu.com/weather"]');
-  oldScripts.forEach(script => script.remove());
-
-  const script = document.createElement('script');
-  script.src = `https://api.asilu.com/weather/?city=${encodeURIComponent(city)}&callback=showWeather`;
-  script.type = 'text/javascript';
-  document.body.appendChild(script);
-}
-
-// 渲染函数：取消换行，横向显示核心信息
-window.showWeather = function(res) {
-  if (res && res.status === 'success' && res.weather && res.weather.length > 0) {
-    const today = res.weather[0];
-    // 移除<br>，用空格分隔，适配并排布局
-    weaBox.textContent = `${today.weather} ${today.temp}℃ | 湿度${today.humidity} | 风力${today.wind}`;
-  } else {
-    weaBox.textContent = '天气加载失败';
-    console.error('天气接口异常：', res);
-  }
-};
-
-// 初始化天气+30分钟更新
-getWeather();
-setInterval(() => getWeather(), 30 * 60 * 1000);
-
-// 3. 轮播功能
-const carousel = document.getElementById("carousel");
-const slides = carousel.children;
-let currentIndex = 0;
-function moveCarousel() {
-    const slideHeight = slides[0].offsetHeight;
-    currentIndex = (currentIndex + 1) % slides.length;
-    carousel.style.transform = `translateY(-${currentIndex * slideHeight}px)`;
-}
-
-// 确保轮播图高度正确
-window.addEventListener('load', () => {
+    // 确保轮播图高度正确
     const slideHeight = slides[0].offsetHeight;
     carousel.style.height = `${slideHeight * slides.length}px`;
     setInterval(moveCarousel, 3000);
@@ -84,14 +37,19 @@ const imgNewsData = [
     { title: "奇峰三千 秀水八百 雄奇险峻", time: "14:40", img: "张家界武陵源.jpg", link: "https://cn.yadingtour.com/" }
 ];
 
-// 文字逐字动画函数
+// 文字逐字动画函数（修复版）
 function createTextAnimation(text) {
-    return text.split('').map((char, idx) => `<span class="char" style="animation-delay: ${idx * 0.03}s">${char}</span>`).join('');
+    if (!text) return "";
+    return text.split('').map((char, idx) => 
+        `<span class="char" style="animation-delay: ${idx * 0.03}s">${char}</span>`
+    ).join('');
 }
 
-// 渲染左侧八点新闻
+// 渲染左侧八点新闻（修复版）
 function renderDotNews() {
     const dotContainer = document.getElementById("news-list-dot");
+    if (!dotContainer) return;
+
     dotNewsData.forEach((news, index) => {
         const item = document.createElement("a");
         item.href = news.link;
@@ -105,9 +63,11 @@ function renderDotNews() {
     });
 }
 
-// 渲染右侧三图新闻（去重统一版本）
+// 渲染右侧三图新闻（修复版）
 function renderImgNews() {
     const imgContainer = document.getElementById("news-list-img");
+    if (!imgContainer) return;
+
     imgNewsData.forEach((news, index) => {
         const item = document.createElement("a");
         item.href = news.link;
@@ -129,123 +89,108 @@ function renderImgNews() {
 }
 
 // 视频播放功能
-const video = document.getElementById('polarVideo');
-const programItems = document.querySelectorAll('.program-item');
-const moreBtn = document.querySelector('.more-btn button');
+document.addEventListener('DOMContentLoaded', () => {
+    const video = document.getElementById('polarVideo');
+    const programItems = document.querySelectorAll('.program-item');
+    const moreBtn = document.querySelector('.more-btn button');
 
-// 节目切换功能：点击节目时加载自定义视频链接
-programItems.forEach(item => {
-  item.addEventListener('click', () => {
-    programItems.forEach(i => i.classList.remove('active'));
-    item.classList.add('active');
+    if (!video) return;
 
-    const videoSrc = item.dataset.videoSrc;
-    const videoPoster = item.dataset.videoPoster;
+    // 节目切换功能
+    programItems.forEach(item => {
+        item.addEventListener('click', () => {
+            programItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
 
-    video.poster = videoPoster;
-    video.src = videoSrc;
-    video.load();
-    video.play();
-  });
-});
+            const videoSrc = item.dataset.videoSrc;
+            const videoPoster = item.dataset.videoPoster;
 
-// 视频循环播放
-video.addEventListener('ended', () => {
-  video.currentTime = 0;
-  video.play();
-});
+            video.poster = videoPoster;
+            video.src = videoSrc;
+            video.load();
+            video.play();
+        });
+    });
 
-// more按钮跳转功能
-moreBtn.addEventListener('click', () => {
-  window.location.href = '1.html';
+    // 视频循环播放
+    video.addEventListener('ended', () => {
+        video.currentTime = 0;
+        video.play();
+    });
+
+    // more按钮跳转
+    if (moreBtn) {
+        moreBtn.addEventListener('click', () => {
+            window.location.href = '1.html';
+        });
+    }
 });
 
 // 页面初始化
-renderDotNews();
-renderImgNews();
-document.getElementById('footer-report-btn').addEventListener('click', () => {
-  document.getElementById('report-modal').classList.remove('hidden');
+document.addEventListener('DOMContentLoaded', () => {
+    renderDotNews();
+    renderImgNews();
+
+    // 举报按钮
+    const reportBtn = document.getElementById('footer-report-btn');
+    if (reportBtn) {
+        reportBtn.addEventListener('click', () => {
+            document.getElementById('report-modal').classList.remove('hidden');
+        });
+    }
 });
-// 友情链接弹窗核心逻辑
+
+// 友情链接弹窗
 document.addEventListener('DOMContentLoaded', function() {
-  // 1. 获取DOM元素
-  const friendLinkPopup = document.getElementById('friendLinkPopup');
-  const closePopupBtn = document.getElementById('closePopup');
-  const skipPopupBtn = document.getElementById('skipPopup');
-  const dontShowAgainCheckbox = document.getElementById('dontShowAgain');
-  const popupMask = friendLinkPopup; // 遮罩层与弹窗容器共用
+    const friendLinkPopup = document.getElementById('friendLinkPopup');
+    if (!friendLinkPopup) return;
 
-  // 2. 检查是否需要显示弹窗（24小时内不重复）
-  function checkShowPopup() {
-    const lastPopupTime = localStorage.getItem('lastFriendLinkPopup');
-    const now = Date.now();
-    // 若存在缓存且未超过24小时（86400000毫秒），则不显示
-    if (lastPopupTime && (now - lastPopupTime) < 86400000) {
-      return false;
+    const closePopupBtn = document.getElementById('closePopup');
+    const skipPopupBtn = document.getElementById('skipPopup');
+    const dontShowAgainCheckbox = document.getElementById('dontShowAgain');
+    const popupMask = friendLinkPopup;
+
+    function checkShowPopup() {
+        const lastPopupTime = localStorage.getItem('lastFriendLinkPopup');
+        const now = Date.now();
+        if (lastPopupTime && (now - lastPopupTime) < 86400000) {
+            return false;
+        }
+        return true;
     }
-    return true;
-  }
 
-  // 3. 显示弹窗（触发时机：页面加载完成3秒后 / 或绑定到搜索/点击事件）
-  function showFriendLinkPopup() {
-    if (!checkShowPopup()) return;
-    // 延迟3秒显示，避免页面加载时突兀
-    setTimeout(() => {
-      friendLinkPopup.classList.remove('hidden');
-      // 记录弹窗显示时间
-      localStorage.setItem('lastFriendLinkPopup', Date.now().toString());
-    }, 3000);
-  }
-
-  // 4. 关闭弹窗
-  function closeFriendLinkPopup() {
-    friendLinkPopup.classList.add('hidden');
-    // 若勾选“24小时内不再显示”，更新缓存时间
-    if (dontShowAgainCheckbox.checked) {
-      localStorage.setItem('lastFriendLinkPopup', Date.now().toString());
+    function showFriendLinkPopup() {
+        if (!checkShowPopup()) return;
+        setTimeout(() => {
+            friendLinkPopup.classList.remove('hidden');
+            localStorage.setItem('lastFriendLinkPopup', Date.now().toString());
+        }, 3000);
     }
-    // 重置复选框状态
-    dontShowAgainCheckbox.checked = false;
-  }
 
-  // 5. 绑定事件
-  // 关闭按钮（兼容触摸+点击）
-  closePopupBtn.addEventListener('click', closeFriendLinkPopup);
-  closePopupBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    closeFriendLinkPopup();
-  });
-
-  // 跳过按钮
-  skipPopupBtn.addEventListener('click', closeFriendLinkPopup);
-  skipPopupBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    closeFriendLinkPopup();
-  });
-
-  // 点击遮罩层关闭弹窗
-  popupMask.addEventListener('click', function(e) {
-    // 仅点击遮罩层（而非弹窗内容）时关闭
-    if (e.target === friendLinkPopup) {
-      closeFriendLinkPopup();
+    function closeFriendLinkPopup() {
+        friendLinkPopup.classList.add('hidden');
+        if (dontShowAgainCheckbox.checked) {
+            localStorage.setItem('lastFriendLinkPopup', Date.now().toString());
+        }
+        dontShowAgainCheckbox.checked = false;
     }
-  });
 
-  // 6. 初始化显示弹窗（可根据需求调整触发时机）
-  // 方式1：页面加载后自动显示（如上）
-  showFriendLinkPopup();
+    closePopupBtn.addEventListener('click', closeFriendLinkPopup);
+    skipPopupBtn.addEventListener('click', closeFriendLinkPopup);
 
-  // 方式2：绑定到“搜索按钮点击”“页面滚动”等触发（示例）
-  // const searchBtn = document.getElementById('search-btn');
-  // if (searchBtn) {
-  //   searchBtn.addEventListener('click', showFriendLinkPopup);
-  // }
+    popupMask.addEventListener('click', function(e) {
+        if (e.target === friendLinkPopup) {
+            closeFriendLinkPopup();
+        }
+    });
+
+    showFriendLinkPopup();
 });
 
-// 表单提交：跳转官方举报渠道
-document.getElementById('report-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  window.open('https://www.12377.cn/jbzn.html?tab=4', '_blank');
-  alert('举报已提交，官方将在3-5个工作日内核实反馈！');
-  document.getElementById('report-modal').classList.add('hidden');
+// 举报表单提交
+document.getElementById('report-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    window.open('https://www.12377.cn/jbzn.html?tab=4', '_blank');
+    alert('举报已提交，官方将在3-5个工作日内核实反馈！');
+    document.getElementById('report-modal').classList.add('hidden');
 });
