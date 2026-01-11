@@ -27,7 +27,222 @@
         }
     </script>
 
-    <style>
+    <style> * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 背景容器：一次性渐变到夜晚后固定 */
+        /* 背景容器：一次性渐变到夜晚后固定 */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -9999;
+            background-size: 400% 400%;
+            /* 20秒一次性渐变到夜晚，然后保持 */
+            animation: bgGradientAnimation 20s ease-in-out forwards;
+            transform: translateZ(0);
+            will-change: background-position, background-color;
+        }
+
+        /* 一次性渐变关键帧（从白天到夜晚，完成后固定） */
+        @keyframes bgGradientAnimation {
+            0% {
+                /* 初始：白天（蓝天白云） */
+                background: 
+                    radial-gradient(circle at 10% 20%, rgba(135, 206, 235, 0.9) 0%, rgba(176, 224, 230, 0.8) 25%, rgba(240, 248, 255, 0.7) 50%, rgba(173, 216, 230, 0.8) 75%, rgba(135, 206, 235, 0.9) 100%),
+                    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 15a5 5 0 0 1 10 0a5 5 0 0 1-10 0zM40 25a5 5 0 0 1 10 0a5 5 0 0 1-10 0zM50 35a5 5 0 0 1 10 0a5 5 0 0 1-10 0zM60 25a5 5 0 0 1 10 0a5 5 0 0 1-10 0zM70 15a5 5 0 0 1 10 0a5 5 0 0 1-10 0z' fill='%23ffffff' fill-opacity='0.6' fill-rule='evenodd'/%3E%3C/svg%3E");
+                background-position: 0% 0%;
+            }
+            100% {
+                /* 目标：夜晚（星空）- 完成后固定 */
+                background: 
+                    radial-gradient(circle at 90% 80%, rgba(0, 0, 51, 0.95) 0%, rgba(0, 0, 102, 0.9) 25%, rgba(245, 245, 222, 0.85) 50%, rgba(0, 0, 139, 0.9) 75%, rgba(0, 0, 26, 0.95) 100%),
+                    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10a2 2 0 1 1 0 4a2 2 0 0 1 0-4zm20 30a2 2 0 1 1 0 4a2 2 0 0 1 0-4zm20 30a2 2 0 1 1 0 4a2 2 0 0 1 0-4zm30-30a2 2 0 1 1 0 4a2 2 0 0 1 0-4zm20-30a2 2 0 1 1 0 4a2 2 0 0 1 0-4zm-80 80a2 2 0 1 1 0 4a2 2 0 0 1 0-4zm80-80a2 2 0 1 1 0 4a2 2 0 0 1 0-4zm-80 40a2 2 0 1 1 0 4a2 2 0 0 1 0-4zm40 40a2 2 0 1 1 0 4a2 2 0 0 1 0-4z' fill='%23ffffff' fill-opacity='0.8' fill-rule='evenodd'/%3E%3C/svg%3E");
+                background-position: 100% 100%;
+            }
+        }
+
+        /* 全局页面样式 */
+        html, body {
+            min-height: 100vh;
+            background: transparent !important;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        /* 安全标识栏 */
+        .bg-nature-main\/10 {
+            background-color: rgba(72, 187, 120, 0.25) !important;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 20s ease-in-out;
+        }
+
+        /* 核心模块：20秒渐变到目标样式后固定 + 高对比度背景 */
+        .main-container {
+            background-color: rgba(255, 255, 255, 0.95) !important; /* 提高不透明度 */
+            backdrop-filter: blur(12px); /* 增强模糊，提升文字可读性 */
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* 增强阴影 */
+            margin: 16px auto;
+            max-width: 1200px;
+            width: 95%;
+            display: flex;
+            gap: 16px;
+            /* 20秒渐变到目标样式，完成后固定 */
+            transition: all 20s ease-in-out forwards;
+        }
+
+        /* 左侧：时间天气模块 - 增加内边距和间距 */
+        .time-weather-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 16px; /* 增大间距 */
+            padding: 12px; /* 增加内边距 */
+        }
+
+        /* 右侧：搜索栏模块 */
+        .search-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* 时间样式：增大字体 + 高对比度颜色 */
+        .time-display {
+            font-size: 32px; /* 增大字体 */
+            font-weight: 700; /* 加粗 */
+            color: #1e3a8a; /* 初始颜色：深蓝色（高对比度） */
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1); /* 增加文字阴影 */
+            transition: color 20s ease-in-out forwards;
+        }
+
+        /* 天气信息：增大字体 + 高对比度样式 */
+        .date-weather-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* 增大间距 */
+            justify-content: center;
+            align-items: center;
+            color: #1f2937; /* 初始颜色：深灰（高对比度） */
+            font-size: 16px; /* 增大字体 */
+            font-weight: 500; /* 加粗 */
+            line-height: 1.6;
+            transition: all 20s ease-in-out forwards;
+        }
+        .date-weather-display span {
+            padding: 6px 12px; /* 增大内边距 */
+            border-radius: 8px; /* 增大圆角 */
+            background-color: rgba(243, 244, 246, 0.8); /* 浅灰背景，提高对比度 */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* 增加标签阴影 */
+            transition: all 20s ease-in-out forwards;
+            white-space: nowrap; /* 防止文字换行 */
+        }
+
+        /* 搜索栏样式 */
+        .search-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        #search-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e2e8f0; /* 初始边框 */
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: all 20s ease-in-out forwards;
+        }
+        #search-input:focus {
+            border-color: #48bb78;
+            box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.1);
+        }
+
+        /* 搜索引擎选择器：20秒渐变到目标样式 */
+        .engine-selector {
+            position: relative;
+            width: 100%;
+        }
+        .engine-selected {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0; /* 初始边框 */
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #fff; /* 初始背景 */
+            transition: all 20s ease-in-out forwards;
+        }
+        .engine-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #fff; /* 初始背景 */
+            border: 1px solid #e2e8f0; /* 初始边框 */
+            border-radius: 8px;
+            margin-top: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            z-index: 999;
+            display: none;
+            transition: all 20s ease-in-out forwards;
+        }
+        .engine-selector:hover .engine-options {
+            display: block;
+        }
+        .engine-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background-color 0.5s ease-in-out;
+        }
+        .engine-option:hover {
+            background-color: #f8fafc;
+        }
+        .engine-option.active {
+            background-color: rgba(72, 187, 120, 0.1); /* 初始背景 */
+            color: #2f855a; /* 初始颜色 */
+            transition: all 20s ease-in-out forwards;
+        }
+        .engine-check {
+            color: #48bb78; /* 初始颜色 */
+            font-weight: bold;
+            transition: color 20s ease-in-out forwards;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                width: 90%;
+                padding: 12px;
+            }
+            .time-display {
+                font-size: 28px;
+            }
+            .date-weather-display {
+                flex-direction: column;
+                text-align: center;
+                font-size: 14px;
+            }
+            .date-weather-display span {
+                width: 100%;
+                text-align: center;
+            }
+        }
     /* 新增搜索栏整合样式 */
          .header-row {
              display: flex;
@@ -115,7 +330,8 @@
          }
     </style>
 </head>
-<!-- 安全标识顶部栏 -->
+<!-- 背景容器 -->
+    <div class="bg-container"></div><!-- 安全标识顶部栏 -->
 <div class="bg-nature-main/10 border-b border-nature-main/30 py-2 px-4">
     <div class="container mx-auto flex items-center justify-center text-sm text-nature-dark">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-nature-main" fill="none" viewBox="0 0 24 24" stroke="currentColor">
